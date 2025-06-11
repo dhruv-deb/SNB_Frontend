@@ -1,0 +1,53 @@
+
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+  background-color: transparent;
+  border-radius: 8px;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  color: #000000;
+}
+
+.aboutImage {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-top: -2rem;
+  margin: 0 auto 2rem auto;
+  border-radius: 8px;
+  transform: scale(0.8);
+
+}
+
+.paragraph {
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  text-align: justify;
+  color: #000000;
+  font-family: 'Arial';
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .paragraph {
+    font-size: 1rem;
+  }
+}

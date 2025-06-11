@@ -2,6 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
+// globals.scss
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.6rem;
+  background-color: #f0f4f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 7rem;
+  color: var(--foreground);
+  background: var(--background);
+  // font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2, label, input, select, button, a {
+  all: unset; // resets
+  box-sizing: border-box;
+}
+
+input, select {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  font-size: 1.6rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  transition: border 0.3s ease;
+}
+
+input:focus, select:focus {
+  border-color: #0077cc;
+  outline: none;
+}
+
+button {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 1rem;
+  font-size: 1.8rem;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+a {
+  color: #0077cc;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -14,11 +87,11 @@
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
+// body {
+//   color: var(--foreground);
+//   background: var(--background);
+//   font-family: Arial, Helvetica, sans-serif;
+// }
 
 @layer utilities {
   .text-balance {
