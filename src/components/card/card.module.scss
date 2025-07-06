@@ -1,0 +1,305 @@
+
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+
+  &.light {
+    background: #ffffff;
+    border: 1px solid #e0e4e8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    .infoLabel { color: #333333; }
+    .infoValue { color: #222222; }
+  }
+
+  &.dark {
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(0,0,0,0.1);
+    backdrop-filter: blur(8px);
+    .infoLabel { color: #333333; }
+    .infoValue { color: #222222; }
+  }
+
+  .infoLabel {
+    font-weight: 500;
+    font-size: 1.6rem;
+    min-width: 100px;
+    color: #333333;
+  }
+
+  .infoValue {
+    font-weight:400;
+    color: #292929;
+    font-size: 1.4rem;
+    text-align: right;
+    flex: 1;
+  }
+}
+
+.discussionCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 100%;
+  gap: 1rem;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+
+  .discussionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+
+    .headerProfileInfo{
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .answered{
+      font-weight: 500;
+      color: #03c300;
+      font-size: 1.2rem;
+      margin-right: 0.5rem;
+    }
+    .notAnswered{
+      font-weight: 500;
+      color: #e74c3c;
+      font-size: 1.2rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+  .profilePhoto {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #cccccc;
+  }
+
+  .profileName {
+    font-weight: 500;
+    color: #222222;
+  }
+
+  .discussionContent {
+    color: #333333;
+    line-height: 1.4;
+    p { margin: 0; }
+  }
+
+  .discussionActions {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .likeButton {
+    display: flex;
+    gap: 1em;
+  }
+
+  .smallButton {
+    width: 5rem; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background: #e0e4e8;
+    color: #222222;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: #d0d4d8;
+    }
+  }
+
+  .answerContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    p { margin: 0; }
+  }
+
+  .proffAnswerInput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+
+  .proffTextBox {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d0d7de;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #fff;
+    color: #111;
+    font-family: inherit;
+    outline: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+
+    &:focus {
+      border-color: #1e90ff;
+      box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.2);
+    }
+
+    &::placeholder {
+      color: #aaa;
+      font-weight: 400;
+    }
+  }
+
+    .proffButtonRow {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      justify-content: flex-start;
+      width: auto;
+
+      .proffAttachButton,
+      .proffSubmitButton {
+        padding: 0.5rem 4rem;
+        border: none;
+        border-radius: 4px;
+        background: #e0e4e8;
+        color: #222222;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        &:hover { background: #d0d4d8; }
+      }
+    }
+
+    .previousAnswer {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #fafbfc; // lighter than #f0f2f5
+    border: 1px solid #e0e0e0; // subtle border
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06); // subtle shadow
+    color: #222;
+    font-size: 1rem;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    box-sizing: border-box;
+
+    span {
+      flex: 1;
+      word-break: break-word;
+    }
+
+    .deleteIcon {
+      color: #e74c3c;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #c0392b;
+      }
+    }
+  }
+
+
+  }
+}
+
+@media (max-width: 1024px) {
+  .infoItem {
+    justify-content: space-between;
+    align-items: center;
+    .infoLabel { min-width: auto; font-size: 1.4rem; }
+    .infoValue { font-size: 1.2rem; flex: 1; }
+  }
+  .discussionCard { padding: 1rem; gap: 0.75rem; }
+  .discussionHeader { gap: 0.75rem; }
+  .profilePhoto { width: 32px; height: 32px; }
+  .proffAnswerInput {
+    gap: 0.5rem;
+    .proffTextBox { font-size: 0.95rem; padding: 0.5rem 0.5rem; }
+    .proffButtonRow { gap: 0.4rem;
+      .proffAttachButton, .proffSubmitButton { font-size: 0.95rem; padding: 0.6rem 0.75rem; }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .infoItem {
+    padding: 0.875rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+
+    .infoLabel { font-size: 1.1rem; opacity: 0.9; }
+    .infoValue {
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+  }
+  .discussionCard { padding: 0.75rem; gap: 0.5rem; }
+  .profileName { font-size: 1rem; }
+  .likeButton { gap: 0.5em; }
+  .smallButton { padding: 0.75rem 1rem; }
+  .proffAnswerInput {
+    gap: 0.5rem;
+    .proffTextBox { font-size: 0.95rem; padding: 0.5rem 0.5rem; }
+    .proffButtonRow {
+      gap: 0.4rem;
+      .proffAttachButton, .proffSubmitButton { font-size: 0.95rem; padding: 0.6rem 0.75rem; }
+    }
+    .previousAnswer { font-size: 0.95rem; padding: 0.6rem 0.7rem; gap: 0.7rem; }
+    .deleteButton { font-size: 0.9rem; padding: 0.35rem 0.7rem; }
+  }
+}
+
+@media (max-width: 480px) {
+  .infoItem { padding: 0.75rem; }
+  .discussionCard { padding: 0.5rem; gap: 0.25rem; }
+  .discussionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .profilePhoto { width: 28px; height: 28px; }
+  .profileName { font-size: 0.95rem; }
+  .discussionActions { flex-direction: column; gap: 0.5rem; }
+  .smallButton {  font-size: 0.75rem; }
+  .likeButton { width:100%; flex-direction: row; justify-content: space-between; gap: 0.5em; }
+  .proffAnswerInput {
+    gap: 0.4rem;
+    .proffTextBox { font-size: 0.9rem; padding: 0.45rem 0.4rem; }
+    .proffButtonRow {
+      gap: 0.3rem;
+      .proffAttachButton, .proffSubmitButton { width: 100%; font-size: 0.9rem; padding: 0.5rem 0.5rem; }
+    }
+    .previousAnswer { font-size: 0.9rem; padding: 0.5rem 0.5rem; gap: 0.5rem; }
+    .deleteButton { font-size: 0.85rem; padding: 0.3rem 0.6rem; }
+  }
+}

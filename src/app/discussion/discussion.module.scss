@@ -1,34 +1,105 @@
-.container {
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-  font-family: 'Segoe UI', sans-serif;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
+// // .container {
+// //   padding: 2rem;
+// //   max-width: 800px;
+// //   margin: 0 auto;
+// //   font-family: 'Segoe UI', sans-serif;
+// //   display: flex;
+// //   flex-direction: column;
+// //   gap: 1.5rem;
+// // }
 
-.header {
-  text-align: center;
-}
+// // .header {
+// //   text-align: center;
+// // }
 
-.title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #2c3e50;
-}
+// // .title {
+// //   font-size: 2rem;
+// //   font-weight: 600;
+// //   color: #2c3e50;
+// // }
 
-.subtitle {
-  font-size: 1rem;
-  color: #7f8c8d;
-}
+// // .subtitle {
+// //   font-size: 1rem;
+// //   color: #7f8c8d;
+// // }
 
-.classInfo {
-  background-color: #ecf0f1;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
+// // .classInfo {
+// //   background-color: #ecf0f1;
+// //   padding: 1rem;
+// //   border-radius: 8px;
+// //   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+// // }
+
+// // // .inputSection {
+// // //   display: flex;
+// // //   flex-direction: column;
+// // //   gap: 1rem;
+// // // }
+
+// // // .inputField {
+// // //   padding: 0.75rem;
+// // //   font-size: 1rem;
+// // //   border: 1px solid #bdc3c7;
+// // //   border-radius: 5px;
+// // //   resize: vertical;
+// // //   min-height: 80px;
+// // // }
+
+// // .submitButton {
+// //  align-self: flex-end;
+// //   background-color: #3498db;
+// //   color: white;
+// //  padding: 0.6rem 1.2rem;
+// //   font-size: 1rem;
+// //   border: none;
+// //   border-radius: 5px;
+// //   cursor: pointer;
+// //   transition: background 0.3s ease;
+// //   width: fit-content;
+// // }
+
+// // .submitButton:hover {
+// //   background-color: #2980b9;
+// // }
+
+// // .discussionList {
+// //   margin-top: 1rem;
+// //   display: flex;
+// //   flex-direction: column;
+// //   gap: 0.75rem;
+// // }
+
+// // .discussionItem {
+// //   background-color: #fdfefe;
+// //   border: 1px solid #dcdde1;
+// //   padding: 0.75rem;
+// //   border-radius: 5px;
+// //   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+// // }
+
+// // .noDiscussions {
+// //   color: #95a5a6;
+// //   font-style: italic;
+// // }
+
+
+// .discussionContainer {
+//   padding: 2rem;
+//   max-width: 800px;
+//   margin: 0 auto;
+//   font-family: 'Segoe UI', sans-serif;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 1.5rem;
+// }
+
+// .heading {
+//   text-align: center;
+//   font-size: 2rem;
+//   font-weight: 600;
+//   color: #2c3e50;
+//   margin-bottom: 0.5rem;
+// }
 
 // .inputSection {
 //   display: flex;
@@ -36,20 +107,149 @@
 //   gap: 1rem;
 // }
 
-// .inputField {
+// .textarea {
 //   padding: 0.75rem;
 //   font-size: 1rem;
 //   border: 1px solid #bdc3c7;
 //   border-radius: 5px;
 //   resize: vertical;
 //   min-height: 80px;
+//   font-family: inherit;
 // }
 
-.submitButton {
- align-self: flex-end;
+// .postButton {
+//   align-self: flex-end;
+//   background-color: #3498db;
+//   color: white;
+//   padding: 0.6rem 1.2rem;
+//   font-size: 1rem;
+//   border: none;
+//   border-radius: 5px;
+//   cursor: pointer;
+//   transition: background 0.3s ease;
+//   width: fit-content;
+// }
+
+// .postButton:hover {
+//   background-color: #2980b9;
+// }
+
+// .discussionList {
+//   margin-top: 1rem;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 0.75rem;
+// }
+
+// .postItem {
+//   background-color: #fdfefe;
+//   border: 1px solid #dcdde1;
+//   padding: 0.75rem;
+//   border-radius: 5px;
+//   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+// }
+
+// .noPosts,
+// .notFound {
+//   color: #95a5a6;
+//   font-style: italic;
+//   text-align: center;
+// }
+.discussionPage {
+   max-width: 1500px; // or 100%, depending on your layout
+  margin: 0 auto;     // ✅ centers the whole layout
+  height: 100vh;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  box-sizing: border-box;
+}
+
+.sidebar {
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #dfe6e9;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  height: fit-content;
+} 
+
+.sidebar h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.sidebar button {
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  background-color: #ecf0f1;
+  border: none;
+  color: #2c3e50;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar button:hover {
+  background-color: #d0d3d4;
+}
+
+.activeTab {
   background-color: #3498db;
   color: white;
- padding: 0.6rem 1.2rem;
+}
+
+.discussionContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1024px;
+  background-color: #ffffff;
+  padding: 2rem;
+  border: 1.5px solid #7272723e;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+
+.heading {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.textarea {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+.postButton {
+  align-self: flex-end;
+  background-color: #3498db;
+  color: white;
+  padding: 0.6rem 1.2rem;
   font-size: 1rem;
   border: none;
   border-radius: 5px;
@@ -58,10 +258,16 @@
   width: fit-content;
 }
 
-.submitButton:hover {
+.postButton:hover {
   background-color: #2980b9;
 }
 
+.filter{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 .discussionList {
   margin-top: 1rem;
   display: flex;
@@ -69,15 +275,17 @@
   gap: 0.75rem;
 }
 
-.discussionItem {
+.postItem {
   background-color: #fdfefe;
   border: 1px solid #dcdde1;
   padding: 0.75rem;
   border-radius: 5px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.noDiscussions {
+.noPosts,
+.notFound {
   color: #95a5a6;
   font-style: italic;
+  text-align: center;
 }

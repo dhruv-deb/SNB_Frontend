@@ -42,41 +42,46 @@ const LoginPage = () => {
   };
 
   return (
+    <main className={style.parent}>
     <div className={style.container}>
-      <h1>Login</h1>
+      <h1 className={style.h1}>Login</h1>
       <form className={style.smallForm} onSubmit={handleLogin}>
         {message && <div className={style.message}>{message}</div>}
 
-        <label>Username *</label>
+        <label className={style.label}>Username *</label>
         <input
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="e.g. Sam"
-        />
+          className={style.input}
+          />
 
-        <label>Email *</label>
+        <label className={style.label}>Email *</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className={style.input}
           placeholder="e.g. samarjitroy025@gmail.com"
-        />
+          />
 
-        <label>Password *</label>
+        <label className={style.label}>Password *</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        />
+          className={style.input}
+          />
 
-        <button type="submit">Login</button>
+        <button type="submit" className={style.button}>Login</button>
       </form>
 
       <div className={style.signupMsg}>
-        Don't have an account? <Link href="/signup">Sign up</Link>
+        Don&apos;t have an account? <Link href="/signup">Sign up</Link>
       </div>
     </div>
+  </main>
   );
 };
 
