@@ -30,17 +30,20 @@ const ClassForm = () => {
         }
 
         addClass({ subject, day, startTime, endTime, location, notes });
-        router.push('/schedule');
+        // router.push('/schedule');
+        router.push(`/discussion/${subject}`);
+
     };
 
     return (
         <div className={style.container}>
-            <h1>Add Class</h1>
+            <h1 className={style.h1}>Add Class</h1>
             <form onSubmit={handleSubmit}>
                 <div className={style.row}>
                     <div className={style.column}>
-                        <label htmlFor="subject">Subject Code</label>
+                        <label className={style.label} htmlFor="subject">Subject Code</label>
                         <input
+                            className={style.input}
                             type="text"
                             id="subject"
                             placeholder="e.g. EC 310"
@@ -49,7 +52,7 @@ const ClassForm = () => {
                         />
                     </div>
                     <div className={style.column}>
-                        <label htmlFor="day">Day</label>
+                        <label className={style.label} htmlFor="day">Day</label>
                         <select
                             id="day"
                             value={day}
@@ -68,7 +71,7 @@ const ClassForm = () => {
 
                 <div className={style.row}>
                     <div className={style.column}>
-                        <label htmlFor="startTime">Start Time</label>
+                        <label className={style.label} htmlFor="startTime">Start Time</label>
                         <select
                             id="startTime"
                             value={startTime}
@@ -85,7 +88,7 @@ const ClassForm = () => {
                     </div>
 
                     <div className={style.column}>
-                        <label htmlFor="endTime">End Time</label>
+                        <label className={style.label} htmlFor="endTime">End Time</label>
                         <select
                             id="endTime"
                             value={endTime}
@@ -107,8 +110,9 @@ const ClassForm = () => {
                     </div>
                 </div>
 
-                <label htmlFor="location">Venue</label>
+                <label className={style.label} htmlFor="location">Venue</label>
                 <input
+                    className={style.input}
                     type="text"
                     id="location"
                     placeholder="e.g. G-307"
@@ -116,8 +120,9 @@ const ClassForm = () => {
                     onChange={(e) => setLocation(e.target.value)}
                 />
 
-                <label htmlFor="notes">Note</label>
+                <label className={style.label} htmlFor="notes">Note</label>
                 <textarea
+                className={style.textarea}
                     id="notes"
                     placeholder="Any important details"
                     value={notes}

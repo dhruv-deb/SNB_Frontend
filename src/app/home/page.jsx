@@ -4,9 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import style from './home.module.scss';
 import Image from 'next/image';
-import landingImg from '../assets/landing.png';
+import landingImg from '@/assets/landing.png';
 
 const Home = () => {
+  const [hasMounted, setHasMounted] = useState(false);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,6 +16,9 @@ const Home = () => {
     const userStatus = localStorage.getItem('userLoggedIn');
     setIsLoggedIn(userStatus === 'true');
   }, []);
+
+  useEffect(() => setHasMounted(true), []);
+  if (!hasMounted) return null;
 
   const handleNavigate = (path) => {
     setLoading(true);

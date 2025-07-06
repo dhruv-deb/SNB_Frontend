@@ -22,7 +22,7 @@
 }
 
 
-h1 {
+.h1 {
   font-size: 3rem;
   margin-bottom: 0.5rem;
   color: #222;
@@ -31,13 +31,13 @@ h1 {
 
 }
 
-p {
-  margin-bottom: 2rem;
-  color: #666;
-  font-size: 1.4rem;
-}
+// p {
+//   margin-bottom: 2rem;
+//   color: #666;
+//   font-size: 1.4rem;
+// }
 
-label {
+.label {
   display: block;
   margin-top: 1rem;
   font-weight: 600;
@@ -47,8 +47,8 @@ label {
 
 
 .input,
-textarea,
-select {
+.textarea,
+.select {
   width: 100%;
   margin-top: 0.5rem;
   padding: 1rem;
@@ -61,14 +61,14 @@ select {
   background-color: #f9fafb;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
+.input:focus,
+.textarea:focus,
+.select:focus {
   border-color: #4198de;
   outline: none;
 }
 
-textarea {
+.textarea {
   resize: vertical;
   min-height: 8rem;
   font: 1em sans-serif;
@@ -140,7 +140,7 @@ textarea {
   padding-bottom: 3px;
 }
 
-select {
+.select {
   width: 100%;
   margin-top: 0.5rem;
   padding: 1rem;

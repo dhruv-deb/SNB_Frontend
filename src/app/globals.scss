@@ -14,19 +14,29 @@ html {
   font-size: 62.5%;
 }
 
+// body {
+//   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+//   font-size: 1.6rem;
+//   background-color: #f0f4f8;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   min-height: 100vh;
+//   padding: 7rem;
+//   color: var(--foreground);
+//   background: var(--background);
+//   // font-family: Arial, Helvetica, sans-serif;
+// }
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.6rem;
+ 
   background-color: #f0f4f8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 7rem;
   color: var(--foreground);
-  background: var(--background);
-  // font-family: Arial, Helvetica, sans-serif;
+  // background: var(--background);
+  min-height: 100vh;
 }
+
 
 h1, h2, label, input, select, button, a {
   all: unset; // resets
@@ -50,9 +60,9 @@ input:focus, select:focus {
 
 button {
   width: 100%;
-  margin-top: 2rem;
+  // margin-top: 2rem;
   padding: 1rem;
-  font-size: 1.8rem;
+  font-size: 2rem;
   background-color: #0077cc;
   color: white;
   border: none;
@@ -80,18 +90,13 @@ a:hover {
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-// body {
-//   color: var(--foreground);
-//   background: var(--background);
-//   font-family: Arial, Helvetica, sans-serif;
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     --background: #0a0a0a;
+//     --foreground: #ededed;
+//   }
 // }
+
 
 @layer utilities {
   .text-balance {
