@@ -6,8 +6,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import defaultImg from '@/assets/default.jpg';
 import styles from './profile.module.scss';
-import {Button,DropdownButton} from '../../components/button/button.jsx';
-import { Card,DiscussionCard } from '../../components/card/card.jsx';
+import {Button} from '../../components/button/button.jsx';
+import { Card } from '../../components/card/card.jsx';
 import { MdLogout, MdEdit, MdDelete, MdLock } from 'react-icons/md';
 
 const Profile = () => {

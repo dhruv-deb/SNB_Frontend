@@ -1,65 +1,95 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import style from './signup.module.scss';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import Link from "next/link";
+import axios from "axios";
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from "../utils/firebase";
+import style from "./signup.module.scss";
 
 const SignupPage = () => {
   const router = useRouter();
+  const { setUser, setToken } = useAuth();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [scholarId, setScholarId] = useState("");
+  const [branch, setBranch] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [error, setError] = useState("");
 
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [scholarId, setScholarId] = useState('');
-  const [branch, setBranch] = useState('');
-  const [batch, setBatch] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [error, setError] = useState('');
-
-  const register = (e) => {
+  const register = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (!username || !email || !scholarId || !branch || !batch || !password || !passwordConfirm) {
-      setError('All fields are required.');
+    if (
+      !username ||
+      !email ||
+      !scholarId ||
+      !branch ||
+      !password ||
+      !passwordConfirm
+    ) {
+      setError("All fields are required.");
       return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@nits\.ac\.in$/;
     if (!emailRegex.test(email)) {
-      setError('Please enter a valid email address.');
+      setError("Please use your official college email ending in @nits.ac.in");
       return;
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters long.');
+      setError("Password must be at least 6 characters long.");
       return;
     }
 
     if (password !== passwordConfirm) {
-      setError('The two passwords are not the same!');
+      setError("The two passwords are not the same!");
       return;
     }
 
-    // Reset form fields and error
-    setUsername('');
-    setEmail('');
-    setScholarId('');
-    setBranch('');
-    setBatch('');
-    setPassword('');
-    setPasswordConfirm('');
-    setError('');
+    try {
+      const firebaseUser = await createUserWithEmailAndPassword(auth, email, password);
+      const idToken = await firebaseUser.user.getIdToken();
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/signUp`,
+        {
+          firebaseId: idToken,
+          name: username,
+          email,
+          username,
+          role: "student", // default role
+          RollNo: scholarId,
+          Branch: branch,
+        }
+      );
+      setUser(res.data.msg.user);
+      setToken(idToken);
 
-    setTimeout(() => {
-      router.push('/addclass');
-    }, 1000);
+      // Reset fields
+      setUsername("");
+      setEmail("");
+      setScholarId("");
+      setBranch("");
+      setPassword("");
+      setPasswordConfirm("");
+      setError("");
+
+      setTimeout(() => {
+        router.push("/addclass");
+      }, 1000);
+    } catch (err) {
+      const msg = err?.response?.data?.msg || "Something went wrong";
+      setError(msg);
+    }
   };
 
   return (
     <div className={style.centerWrapper}>
-      
       <div className={style.container}>
         <h1>Sign Up</h1>
         <form className={style.smallForm}>
@@ -70,7 +100,7 @@ const SignupPage = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="e.g. Sam"
-            />
+          />
 
           <label>Email *</label>
           <input
@@ -78,14 +108,14 @@ const SignupPage = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="e.g. samarjitroy025@gmail.com"
-            />
+          />
 
           <label>Scholar ID *</label>
           <input
             value={scholarId}
             onChange={(e) => setScholarId(e.target.value)}
             placeholder="e.g. 2214170"
-            />
+          />
 
           <div className={style.row}>
             <div className={style.halfInput}>
@@ -94,7 +124,7 @@ const SignupPage = () => {
                 value={branch}
                 onChange={(e) => setBranch(e.target.value)}
                 className={style.select}
-                >
+              >
                 <option value="">Select branch</option>
                 <option value="CSE">CSE</option>
                 <option value="ECE">ECE</option>
@@ -104,22 +134,6 @@ const SignupPage = () => {
                 <option value="CE">CE</option>
               </select>
             </div>
-
-            <div className={style.halfInput}>
-              <label htmlFor="batch">Batch *</label>
-              <select
-                id="batch"
-                value={batch}
-                onChange={(e) => setBatch(e.target.value)}
-                className={style.select}
-                >
-                <option value="">Select Batch</option>
-                <option value="2022-2026">2022-2026</option>
-                <option value="2023-2027">2023-2027</option>
-                <option value="2024-2028">2024-2028</option>
-                <option value="2025-2029">2025-2029</option>
-              </select>
-            </div>
           </div>
 
           <label>Password *</label>
@@ -127,17 +141,20 @@ const SignupPage = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            />
+          />
 
           <label>Confirm Password *</label>
           <input
             type="password"
             value={passwordConfirm}
             onChange={(e) => setPasswordConfirm(e.target.value)}
-            />
+          />
 
-          <button type="submit" onClick={register}
-          style={{ marginTop: '2rem' }}>
+          <button
+            type="submit"
+            onClick={register}
+            style={{ marginTop: "2rem" }}
+          >
             Sign up
           </button>
         </form>
