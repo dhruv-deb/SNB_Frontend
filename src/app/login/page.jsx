@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useAuth } from "@/context/AuthContext";
 import style from "./login.module.scss";
+import axios from "axios";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -25,10 +26,10 @@ const LoginPage = () => {
       return;
     }
 
-    const emailRegex = /^[^\s@]+@nits\.ac\.in$/;
+    const emailRegex = /^[^\s@]+@([a-z]+\.)?nits\.ac\.in$/i;
     if (!emailRegex.test(email)) {
-      setMessage(
-        'Only Nits email addresses are allowed (ending with "@nits.ac.in").'
+      setError(
+        "Please use your official college email ending in @nits.ac.in or @<dept>.nits.ac.in"
       );
       return;
     }
@@ -55,7 +56,7 @@ const LoginPage = () => {
 
       setUser(res.data.msg.user);
       setToken(token);
-      router.push("/dashboard");
+      router.push("/home");
     } catch (err) {
       const msg = err?.response?.data?.msg || err?.message || "Login failed";
       setMessage(msg);
