@@ -86,7 +86,7 @@ const SignupPage = () => {
       setError("");
 
       setTimeout(() => {
-        router.push("/addclass");
+        router.push("/");
       }, 1000);
     } catch (err) {
       const msg = err?.response?.data?.msg || "Something went wrong";

@@ -56,7 +56,7 @@ const LoginPage = () => {
 
       setUser(res.data.msg.user);
       setToken(token);
-      router.push("/home");
+      router.push("/");
     } catch (err) {
       const msg = err?.response?.data?.msg || err?.message || "Login failed";
       setMessage(msg);
