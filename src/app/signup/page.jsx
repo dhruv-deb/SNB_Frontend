@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import axios from "axios";
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import style from "./signup.module.scss";
 
@@ -36,9 +36,11 @@ const SignupPage = () => {
       return;
     }
 
-    const emailRegex = /^[^\s@]+@nits\.ac\.in$/;
+    const emailRegex = /^[^\s@]+@([a-z]+\.)?nits\.ac\.in$/i;
     if (!emailRegex.test(email)) {
-      setError("Please use your official college email ending in @nits.ac.in");
+      setError(
+        "Please use your official college email ending in @nits.ac.in or @<dept>.nits.ac.in"
+      );
       return;
     }
 
@@ -53,8 +55,12 @@ const SignupPage = () => {
     }
 
     try {
-      const firebaseUser = await createUserWithEmailAndPassword(auth, email, password);
-      const idToken = await firebaseUser.user.getIdToken();
+      const firebaseUser = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const idToken =  firebaseUser.user.uid;
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/signUp`,
         {
@@ -62,7 +68,7 @@ const SignupPage = () => {
           name: username,
           email,
           username,
-          role: "student", // default role
+          role: "Student", // default role
           RollNo: scholarId,
           Branch: branch,
         }

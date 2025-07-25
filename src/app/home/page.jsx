@@ -49,7 +49,7 @@ const Home = () => {
         </button>
         <button
           className={style.secondaryButton}
-          onClick={() => handleNavigate('/login')}
+          onClick={() => handleNavigate('/Login')}
           disabled={loading}
         >
           Login
