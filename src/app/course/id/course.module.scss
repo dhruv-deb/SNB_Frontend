@@ -1,0 +1,238 @@
+/* --- Main Layout & Structure --- */
+.pageContainer {
+  display: flex;
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+  background-color: #f7f9fc;
+  color: #333;
+}
+
+.sidebar {
+  flex: 0 0 280px;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  padding: 1.5rem;
+  overflow-y: auto;
+
+  h2 {
+    margin-top: 0;
+    font-weight: 700;
+    color: #000000;
+    padding: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    font-weight: 500;
+
+    &:hover {
+      background-color: #e9ecef;
+    }
+
+    &.active {
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+    }
+  }
+}
+
+.mainContent {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.placeholder {
+    text-align: center;
+    margin-top: 20%;
+    color: #888;
+}
+
+/* --- Action Buttons --- */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+
+  button {
+      width: auto;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  flex-wrap: wrap;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+    
+    &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+        transform: none;
+    }
+  }
+  
+  button:nth-child(1) {
+    background-color: #007bff;
+    color: white;
+    &:hover:not(:disabled) { background-color: #0056b3; }
+  }
+  
+  button:nth-child(2), button:nth-child(3) {
+    background-color: #28a745;
+    color: white;
+    &:hover:not(:disabled) { background-color: #218838; }
+  }
+}
+
+.infoBox {
+    background-color: #e7f3ff;
+    border-left: 4px solid #007bff;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+}
+
+
+/* --- Modal Styles --- */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 2rem 2.5rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+  h2 {
+    margin-top: 0;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  
+  right: 30px;
+  background: none;
+  border: none;
+  width: 20px;;
+  font-size: 2rem; /* reduce size if it’s pushing out */
+  cursor: pointer;
+  color: #888;
+  line-height: 1;
+}
+
+/* --- Form Styles --- */
+.formGroup {
+  margin-bottom: 1.5rem;
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+}
+
+.saveButton {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #0056b3;
+        
+    }
+}
+
+/* --- Timetable Table --- */
+.tableContainer {
+    margin-top: 2rem;
+}
+
+.timetable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+}
+
+.deleteButton {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #c82333;
+    }
+}
