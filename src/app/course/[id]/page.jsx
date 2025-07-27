@@ -1,11 +1,28 @@
 'use client';
-import React, { useEffect, useState } from "react";
-import styles from "./course.module.scss";
+import React, { useEffect, useState } from 'react';
+import styles from './course.module.scss';
 
-
-const SUBJECTS = ['Microprocessors', 'Web Technology', 'Wireless Communication', 'Information Thoery and Coding', 'Nueral Networks', 'Computer Networks', 'Data Structures', 'Operating Systems', 'DBMS', 'Software Engineering'];
-const DAYS_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
+const SUBJECTS = [
+  'Microprocessors',
+  'Web Technology',
+  'Wireless Communication',
+  'Information Thoery and Coding',
+  'Nueral Networks',
+  'Computer Networks',
+  'Data Structures',
+  'Operating Systems',
+  'DBMS',
+  'Software Engineering',
+];
+const DAYS_OF_WEEK = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
 
 const TimetableModal = ({ onClose, onSave }) => {
   const [day, setDay] = useState('Monday');
@@ -25,39 +42,58 @@ const TimetableModal = ({ onClose, onSave }) => {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <button className={styles.closeButton} onClick={onClose}>&times;</button>
+        <button className={styles.closeButton} onClick={onClose}>
+          &times;
+        </button>
         <h2>Create a New Session</h2>
         <form onSubmit={handleSave}>
           <div className={styles.formGroup}>
             <label htmlFor="day">Day of the Week</label>
-            <select id="day" value={day} onChange={(e) => setDay(e.target.value)}>
-              {DAYS_OF_WEEK.map(d => <option key={d} value={d}>{d}</option>)}
+            <select
+              id="day"
+              value={day}
+              onChange={(e) => setDay(e.target.value)}
+            >
+              {DAYS_OF_WEEK.map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
             </select>
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="startTime">Start Time</label>
-            <input type="time" id="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+            <input
+              type="time"
+              id="startTime"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+            />
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="endTime">End Time</label>
-            <input type="time" id="endTime" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
+            <input
+              type="time"
+              id="endTime"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+            />
           </div>
-          <button type="submit" className={styles.saveButton}>Save Session Details</button>
+          <button type="submit" className={styles.saveButton}>
+            Save Session Details
+          </button>
         </form>
       </div>
     </div>
   );
 };
 
-
-
 export default function SchedulerPage() {
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [sessionDetails, setSessionDetails] = useState(null); 
-  const [timetable, setTimetable] = useState([]); 
+  const [sessionDetails, setSessionDetails] = useState(null);
+  const [timetable, setTimetable] = useState([]);
 
-  
   useEffect(() => {
     setTimetable([]);
     setSessionDetails(null);
@@ -67,9 +103,11 @@ export default function SchedulerPage() {
     setSessionDetails(details);
     console.log('Saved session details:', details);
   };
-  
+
   const handleDeleteSession = (sessionIdToDelete) => {
-    setTimetable(prevTimetable => prevTimetable.filter(session => session.id !== sessionIdToDelete));
+    setTimetable((prevTimetable) =>
+      prevTimetable.filter((session) => session.id !== sessionIdToDelete)
+    );
   };
 
   const handleGenerateOne = () => {
@@ -82,7 +120,7 @@ export default function SchedulerPage() {
       course: selectedSubject,
       ...sessionDetails,
     };
-    setTimetable(prev => [...prev, newSession]);
+    setTimetable((prev) => [...prev, newSession]);
   };
 
   const handleGenerateAll = () => {
@@ -98,7 +136,7 @@ export default function SchedulerPage() {
         ...sessionDetails,
       });
     }
-    setTimetable(prev => [...prev, ...yearSchedule]);
+    setTimetable((prev) => [...prev, ...yearSchedule]);
   };
 
   return (
@@ -110,11 +148,10 @@ export default function SchedulerPage() {
         />
       )}
 
-
       <aside className={styles.sidebar}>
         <h2>Subjects</h2>
         <ul>
-          {SUBJECTS.map(subject => (
+          {SUBJECTS.map((subject) => (
             <li
               key={subject}
               className={selectedSubject === subject ? styles.active : ''}
@@ -126,7 +163,6 @@ export default function SchedulerPage() {
         </ul>
       </aside>
 
-
       <main className={styles.mainContent}>
         {!selectedSubject ? (
           <div className={styles.placeholder}>
@@ -135,9 +171,11 @@ export default function SchedulerPage() {
           </div>
         ) : (
           <div>
-           <h1><strong>SUBJECT :</strong> {selectedSubject}</h1>
+            <h1>
+              <strong>SUBJECT :</strong> {selectedSubject}
+            </h1>
             <p>Set Timetable to schedule sessions for this subject.</p>
-            
+
             <div className={styles.actions}>
               <button onClick={() => setIsModalOpen(true)}>
                 Make Timetable
@@ -146,13 +184,15 @@ export default function SchedulerPage() {
                 Generate One Session
               </button>
               <button onClick={handleGenerateAll} disabled={!sessionDetails}>
-                 Generate All Sessions (1 Year)
+                Generate All Sessions (1 Year)
               </button>
             </div>
 
             {sessionDetails && (
               <div className={styles.infoBox}>
-                <strong>Ready to generate:</strong> One session every {sessionDetails.day} from {sessionDetails.startTime} to {sessionDetails.endTime}.
+                <strong>Ready to generate:</strong> One session every{' '}
+                {sessionDetails.day} from {sessionDetails.startTime} to{' '}
+                {sessionDetails.endTime}.
               </div>
             )}
 
@@ -170,14 +210,14 @@ export default function SchedulerPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {timetable.map(session => (
+                    {timetable.map((session) => (
                       <tr key={session.id}>
                         <td>{session.course}</td>
                         <td>{session.day}</td>
                         <td>{session.startTime}</td>
                         <td>{session.endTime}</td>
                         <td>
-                          <button 
+                          <button
                             className={styles.deleteButton}
                             onClick={() => handleDeleteSession(session.id)}
                           >
@@ -197,17 +237,12 @@ export default function SchedulerPage() {
   );
 }
 
-
-
-
-
-
 // 'use client';
 // import React, { useEffect, useState, useCallback } from "react";
 // import styles from "./course.module.scss";
 
 // // This component is unchanged
-// const TimetableModal = ({ onClose, onSave }) => { 
+// const TimetableModal = ({ onClose, onSave }) => {
 //     const [day, setDay] = useState('Monday');
 //     const [startTime, setStartTime] = useState('09:00');
 //     const [endTime, setEndTime] = useState('10:30');
@@ -222,7 +257,7 @@ export default function SchedulerPage() {
 //         alert('Please fill out all fields.');
 //       }
 //     };
-  
+
 //     return (
 //       <div className={styles.modalOverlay}>
 //         <div className={styles.modalContent}>
@@ -249,7 +284,6 @@ export default function SchedulerPage() {
 //       </div>
 //     );
 // };
-
 
 // export default function SchedulerPage() {
 //     const [subjects, setSubjects] = useState([]);
@@ -305,7 +339,6 @@ export default function SchedulerPage() {
 //         }
 //     }, [selectedSubject]);
 
-
 //     // Effect to fetch timetable when subject changes
 //     useEffect(() => {
 //         setSessionDetails(null); // Reset form details
@@ -315,7 +348,7 @@ export default function SchedulerPage() {
 //     const handleSaveSessionDetails = (details) => {
 //         setSessionDetails(details);
 //     };
-  
+
 //     const handleDeleteSession = async (sessionIdToDelete) => {
 //         try {
 //             // Replace with your actual API endpoint for deleting a session
@@ -327,7 +360,7 @@ export default function SchedulerPage() {
 //                 throw new Error('Failed to delete session');
 //             }
 //             // Re-fetch timetable to sync with the database
-//             fetchTimetable(); 
+//             fetchTimetable();
 //         } catch (err) {
 //             alert('Error: Could not delete session.');
 //             console.error(err);
@@ -413,7 +446,7 @@ export default function SchedulerPage() {
 //                     <div>
 //                         <h1><strong>SUBJECT:</strong> {selectedSubject}</h1>
 //                         <p>Set Timetable to schedule sessions for this subject.</p>
-                        
+
 //                         <div className={styles.actions}>
 //                             <button onClick={() => setIsModalOpen(true)}>Make Timetable</button>
 //                             <button onClick={handleGenerateOne} disabled={!sessionDetails}>Generate One Session</button>
@@ -449,7 +482,7 @@ export default function SchedulerPage() {
 //                                                 <td>{session.startTime}</td>
 //                                                 <td>{session.endTime}</td>
 //                                                 <td>
-//                                                     <button 
+//                                                     <button
 //                                                         className={styles.deleteButton}
 //                                                         onClick={() => handleDeleteSession(session.id)}
 //                                                     >

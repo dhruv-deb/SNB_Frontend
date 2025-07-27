@@ -6,20 +6,34 @@ const Footer = () => {
   return (
     <footer className={style.footer}>
       <div className={style.socials}>
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <FaFacebook />
         </a>
         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
           <FaTwitter />
         </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <FaInstagram />
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <FaLinkedin />
         </a>
       </div>
-      <p className={style.copy}>© 2025 S.N.BOSE internship project. All rights reserved.</p>
+      <p className={style.copy}>
+        © 2025 S.N.BOSE internship project. All rights reserved.
+      </p>
     </footer>
   );
 };

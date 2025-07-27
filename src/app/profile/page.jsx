@@ -30,11 +30,14 @@ const Profile = () => {
 
   const fetchUser = async (id) => {
     try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setUser(res.data.msg);
       setFormData(res.data.msg);
     } catch (err) {
@@ -63,11 +66,15 @@ const Profile = () => {
         payload.newPassword = password;
       }
 
-      const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/user/${user.id}`, payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/${user.id}`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setUser(res.data.msg);
       setIsEditing(false);
@@ -92,7 +99,9 @@ const Profile = () => {
     <div className={styles.profileDashboard}>
       <div className={styles.profileHeader}>
         <div className={styles.headerNav}>
-          <Link href="/" className={styles.backLink}>← Back to Home</Link>
+          <Link href="/" className={styles.backLink}>
+            ← Back to Home
+          </Link>
         </div>
       </div>
 
@@ -121,10 +130,18 @@ const Profile = () => {
         <div className={styles.profileRight}>
           <div className={styles.userInfoCard}>
             <div className={styles.infoList}>
-              <Card title="Scholar ID" studentData={user.scholarId} variant="dark" />
+              <Card
+                title="Scholar ID"
+                studentData={user.scholarId}
+                variant="dark"
+              />
               <Card title="Name" studentData={user.name} variant="dark" />
               <Card title="Branch" studentData={user.branch} variant="dark" />
-              <Card title="Institute Email" studentData={user.email} variant="dark" />
+              <Card
+                title="Institute Email"
+                studentData={user.email}
+                variant="dark"
+              />
             </div>
             <Button click="Edit Profile" Icon={MdEdit} onClick={openEdit} />
           </div>
@@ -133,7 +150,10 @@ const Profile = () => {
 
       {isEditing && (
         <div className={styles.modalOverlay} onClick={cancelEdit}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
             <h2>Edit Profile</h2>
             {message && <p className={styles.message}>{message}</p>}
             {['scholarId', 'name', 'branch', 'email'].map((field) => (
@@ -160,10 +180,16 @@ const Profile = () => {
             </div>
 
             <div className={styles.modalActions}>
-              <button onClick={saveEdit} className={styles.saveBtn} disabled={saving}>
+              <button
+                onClick={saveEdit}
+                className={styles.saveBtn}
+                disabled={saving}
+              >
                 {saving ? 'Saving...' : 'Save'}
               </button>
-              <button onClick={cancelEdit} className={styles.cancelBtn}>Cancel</button>
+              <button onClick={cancelEdit} className={styles.cancelBtn}>
+                Cancel
+              </button>
             </div>
           </div>
         </div>

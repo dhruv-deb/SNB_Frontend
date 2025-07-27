@@ -1,127 +1,127 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.2rem 2rem;
-    background-color: #4198de;
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    z-index: 1000;
-    margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  background-color: #4198de;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1000;
+  margin: 0;
 }
 
 .logo {
-    font-size: 2rem;
-    font-weight: bold;
-    visibility: hidden;
+  font-size: 2rem;
+  font-weight: bold;
+  visibility: hidden;
 }
 
 .links {
+  display: flex;
+  gap: 20rem;
+  text-align: right;
+  font-family: 'Raleway', sans-serif;
+
+  .linkWrapper {
+    position: relative;
+    padding: 0.5rem 1rem;
     display: flex;
-    gap: 20rem;
-    text-align: right;
-    font-family: 'Raleway', sans-serif;
+    justify-content: center;
+    align-items: center;
 
-    .linkWrapper {
-        position: relative;
-        padding: 0.5rem 1rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.6rem;
+      position: relative;
+      padding-bottom: 0.5rem;
 
-        a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.6rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 0%;
-
-                height: .75px;
-                background-color: white;
-                transition: width 0.3s ease-in-out;
-            }
-
-            &:hover::after {
-                width: 100%;
-                height: 0.75px;
-            }
-        }
-
-        .active {
-            &::after {
-                width: 100%;
-                height: .75px;
-            }
-        }
-    }
-
-    @media (max-width: 768px) {
-        display: none;
-        flex-direction: column;
+      &::after {
+        content: '';
         position: absolute;
-        top: 60px;
-        left: 0;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0%;
+
+        height: 0.75px;
+        background-color: white;
+        transition: width 0.3s ease-in-out;
+      }
+
+      &:hover::after {
         width: 100%;
-        background: #005fa3;
-        padding: 1rem 0;
+        height: 0.75px;
+      }
     }
+
+    .active {
+      &::after {
+        width: 100%;
+        height: 0.75px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #005fa3;
+    padding: 1rem 0;
+  }
 }
 
 .mobileMenu {
-    display: flex !important;
+  display: flex !important;
 }
 
 .profile {
-    position: relative;
-    padding-right: 2rem;
+  position: relative;
+  padding-right: 2rem;
 
-    .icon {
-        cursor: pointer;
+  .icon {
+    cursor: pointer;
+  }
+
+  .dropdown {
+    position: absolute;
+    right: 0;
+    top: 3rem;
+    background-color: white;
+    color: #333;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    z-index: 10;
+
+    a {
+      display: block;
+      padding: 1rem 5rem;
+      text-decoration: none;
+      color: #333;
+      width: 100%;
+      font-size: 1.5rem;
+      transition: background 0.2s;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
     }
-
-    .dropdown {
-        position: absolute;
-        right: 0;
-        top: 3rem;
-        background-color: white;
-        color: #333;
-        border-radius: 0.5rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        overflow: hidden;
-        z-index: 10;
-
-        a {
-            display: block;
-            padding: 1rem 5rem;
-            text-decoration: none;
-            color: #333;
-            width: 100%;
-            font-size: 1.5rem;
-            transition: background 0.2s;
-
-            &:hover {
-                background-color: #f0f0f0;
-            }
-        }
-    }
+  }
 }
 
 .menuIcon {
-    display: none;
-    cursor: pointer;
+  display: none;
+  cursor: pointer;
 
-    @media (max-width: 768px) {
-        display: block;
-    }
+  @media (max-width: 768px) {
+    display: block;
+  }
 }

@@ -27,28 +27,57 @@ const Navbar = () => {
 
       <div className={`${style.links} ${showMenu ? style.mobileMenu : ''}`}>
         <div className={style.linkWrapper}>
-          <NavLink to="/home" className={({ isActive }) => isActive ? style.active : ''} onClick={() => setShowMenu(false)}>Home</NavLink>
+          <NavLink
+            to="/home"
+            className={({ isActive }) => (isActive ? style.active : '')}
+            onClick={() => setShowMenu(false)}
+          >
+            Home
+          </NavLink>
         </div>
         <div className={style.linkWrapper}>
-          <NavLink to="/about" className={({ isActive }) => isActive ? style.active : ''} onClick={() => setShowMenu(false)}>About</NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) => (isActive ? style.active : '')}
+            onClick={() => setShowMenu(false)}
+          >
+            About
+          </NavLink>
         </div>
         <div className={style.linkWrapper}>
-          <NavLink to="/addclass" className={({ isActive }) => isActive ? style.active : ''} onClick={() => setShowMenu(false)}>Add Class</NavLink>
+          <NavLink
+            to="/addclass"
+            className={({ isActive }) => (isActive ? style.active : '')}
+            onClick={() => setShowMenu(false)}
+          >
+            Add Class
+          </NavLink>
         </div>
         <div className={style.linkWrapper}>
-          <NavLink to="/schedule" className={({ isActive }) => isActive ? style.active : ''} onClick={() => setShowMenu(false)}>Schedule</NavLink>
+          <NavLink
+            to="/schedule"
+            className={({ isActive }) => (isActive ? style.active : '')}
+            onClick={() => setShowMenu(false)}
+          >
+            Schedule
+          </NavLink>
         </div>
       </div>
 
       <div className={style.profile}>
-        <div className={style.icon} onClick={() => setShowDropdown(prev => !prev)}>
+        <div
+          className={style.icon}
+          onClick={() => setShowDropdown((prev) => !prev)}
+        >
           <FaUserCircle size={28} />
         </div>
         {showDropdown && (
           <div className={style.dropdown}>
             {isLoggedIn ? (
               <>
-                <Link to="/profile" onClick={() => setShowDropdown(false)}>Profile</Link>
+                <Link to="/profile" onClick={() => setShowDropdown(false)}>
+                  Profile
+                </Link>
                 <button
                   onClick={handleLogout}
                   style={{
@@ -67,9 +96,15 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link to="/profile" onClick={() => setShowDropdown(false)}>Profile</Link>
-                <Link to="/login" onClick={() => setShowDropdown(false)}>Login</Link>
-                <Link to="/signup" onClick={() => setShowDropdown(false)}>Signup</Link>
+                <Link to="/profile" onClick={() => setShowDropdown(false)}>
+                  Profile
+                </Link>
+                <Link to="/login" onClick={() => setShowDropdown(false)}>
+                  Login
+                </Link>
+                <Link to="/signup" onClick={() => setShowDropdown(false)}>
+                  Signup
+                </Link>
               </>
             )}
           </div>

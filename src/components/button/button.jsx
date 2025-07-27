@@ -1,19 +1,15 @@
-"use client"
+'use client';
 import styles from './button.module.scss';
 import { useState, useRef, useEffect } from 'react';
 
 const Button = ({ click, variant = 'default', Icon, onClick }) => {
-    return (
-        <button
-            className={`${styles.button} ${styles[variant]}`}
-            onClick={onClick}
-        >
-            {Icon && <Icon size={20} style={{ marginRight: '8px' }} />}
-            {click}
-        </button>
-    );
+  return (
+    <button className={`${styles.button} ${styles[variant]}`} onClick={onClick}>
+      {Icon && <Icon size={20} style={{ marginRight: '8px' }} />}
+      {click}
+    </button>
+  );
 };
-
 
 const DropdownButton = ({
   options = [],
@@ -71,8 +67,4 @@ const DropdownButton = ({
   );
 };
 
-export {Button,DropdownButton};
-
-
-
-
+export { Button, DropdownButton };
