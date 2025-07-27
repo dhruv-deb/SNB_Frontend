@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
@@ -6,8 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import apiClient from '@/app/utils/apiClient';
 import styles from './courses.module.scss';
-
-
 
 const AddCourseModal = ({ onClose, onSave, professorId }) => {
   const [name, setName] = useState('');
@@ -188,6 +185,32 @@ const TimetableModal = ({ onClose, onSave }) => {
   );
 };
 
+/**
+ * Helper function to get the date of the next specified day of the week.
+ * @param {string} dayOfWeek - The target day of the week (e.g., 'Monday').
+ * @param {Date} fromDate - The date to start searching from.
+ * @returns {Date} The date of the next occurrence of that day.
+ */
+const getNextDateForDay = (dayOfWeek, fromDate = new Date()) => {
+  const dayIndex = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ].indexOf(dayOfWeek);
+  const resultDate = new Date(fromDate.getTime());
+  resultDate.setDate(
+    fromDate.getDate() + ((dayIndex + 7 - fromDate.getDay()) % 7)
+  );
+  // If the day is today but we want the "next" one, add a week
+  if (resultDate.getTime() <= fromDate.getTime()) {
+      resultDate.setDate(resultDate.getDate() + 7);
+  }
+  return resultDate;
+};
 
 
 const ProfessorLayout = ({ user }) => {
@@ -205,7 +228,7 @@ const ProfessorLayout = ({ user }) => {
       setIsLoading(true);
       try {
         const response = await apiClient.get('/courses');
-        const allCourses = response.data.msg || []; 
+        const allCourses = response.data.msg || [];
         const professorCourses = allCourses.filter(
           (c) => c.professorId === user.id
         );
@@ -271,10 +294,16 @@ const ProfessorLayout = ({ user }) => {
     }
   };
 
-  const handleDeleteTimetable = async (timetableId) => {
+  const handleDeleteTimetable = async (id) => {
     if (!selectedCourse) return;
     try {
-      await apiClient.delete(`/timetables/${timetableId}`);
+      console.log(id);
+      await apiClient.delete(`/timetables/`,{
+        data: {
+          timetableId: id,
+        }
+      }
+        );
       fetchMyCourses(selectedCourse.id);
     } catch (error) {
       alert(
@@ -283,12 +312,63 @@ const ProfessorLayout = ({ user }) => {
     }
   };
 
-  const handleGenerateOneSession = () => {
-    alert('Generating one session... (implement logic)');
-  };
-  const handleGenerateAllSessions = () => {
-    alert('Generating all sessions for a year... (implement logic)');
-  };
+  const handleGenerateOneSession = async () => {
+  if (!selectedCourse || timetable.length === 0) {
+    alert('Please select a course and add at least one timetable slot first.');
+    return;
+  }
+
+  try {
+    const today = new Date();
+    const promises = timetable.map((slot) => {
+      const nextDate = getNextDateForDay(slot.dayOfWeek, today);
+      const date = nextDate.toISOString().split('T')[0];
+
+      return apiClient.post("sessions/generateOne", {
+        courseId: selectedCourse.id,
+        date,
+      });
+    });
+
+    await Promise.all(promises);
+
+    alert(`Successfully generated ${timetable.length} session(s) for next week.`);
+  } catch (error) {
+    alert(`Error generating sessions: ${error.response?.data?.message || error.message}`);
+  }
+};
+
+
+  const handleGenerateAllSessions = async () => {
+  if (!selectedCourse || timetable.length === 0) {
+    alert('Please select a course and add at least one timetable slot first.');
+    return;
+  }
+
+  if (!window.confirm(`Are you sure you want to generate a full year of sessions for ${selectedCourse.name}? This will create ${timetable.length * 52} sessions.`)) {
+    return;
+  }
+
+  try {
+    const today = new Date();
+    const oneYearLater = new Date(today);
+    oneYearLater.setFullYear(oneYearLater.getFullYear() + 1);
+
+    const startDate = today.toISOString().split('T')[0];
+    const endDate = oneYearLater.toISOString().split('T')[0];
+
+    await apiClient.post("/sessions", {
+      courseId: selectedCourse.id,
+      startDate,
+      endDate,
+    });
+
+    alert(`Sessions generated for entire year successfully.`);
+  } catch (error) {
+    alert(`Error generating all sessions: ${error.response?.data?.message || error.message}`);
+  }
+};
+
 
   return (
     <div className={styles.pageContainer}>
@@ -380,17 +460,17 @@ const ProfessorLayout = ({ user }) => {
             <hr className={styles.divider} />
 
             <h2>Timetable & Sessions</h2>
-            <p>Set a recurring weekly schedule for this course.</p>
+            <p>Set a recurring weekly schedule for this course. Once set, you can generate the actual class sessions.</p>
             <div className={styles.actions}>
               <button className={styles.timetable} onClick={() => setIsTimetableModalOpen(true)}>
                 Add to Timetable
               </button>
               <div className={styles.generate}>
-                <button className={styles.generateOne} onClick={handleGenerateOneSession}>
-                    Generate One Session
+                <button className={styles.generateOne} onClick={handleGenerateOneSession} disabled={!timetable.length}>
+                    Generate Next Sessions
                 </button>
-                <button className={styles.generateAll} onClick={handleGenerateAllSessions}>
-                    Generate All Sessions
+                <button className={styles.generateAll} onClick={handleGenerateAllSessions} disabled={!timetable.length}>
+                    Generate All (1 Year)
                 </button>
               </div>
             </div>
@@ -447,7 +527,7 @@ const StudentLayout = ({ user }) => {
     setIsLoading(true);
     try {
       const response = await apiClient.get('/courses');
-      setAllCourses(response.data.msg || []); 
+      setAllCourses(response.data.msg || []);
     } catch (error) {
       console.error('Error fetching courses:', error);
       alert(error.response?.data?.message || 'Could not load courses.');

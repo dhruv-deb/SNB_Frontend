@@ -1,16 +1,20 @@
-import axios from 'axios';
+import axios from "axios";
+import { auth } from "./firebase.js"; // ⬅️ Import initialized auth
+
 
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 apiClient.interceptors.request.use(
-  (config) => {
-    // Get the token from localStorage, just like in your AuthContext
-    const token = localStorage.getItem('token');
-    if (token) {
+  async (config) => {
+    const user = auth.currentUser;
+
+    if (user) {
+      const token = await user.getIdToken();
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => {
