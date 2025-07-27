@@ -1,26 +1,27 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import style from "./discussion.module.scss";
-import { useParams } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import style from './discussion.module.scss';
+import { useParams } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
+import axios from 'axios';
 
 const ClassDiscussion = () => {
   const { courseId } = useParams();
   const { user } = useAuth();
   const userId = user?.id;
-  const [discussion, setDiscussion] = useState("");
+  const [discussion, setDiscussion] = useState('');
   const [questions, setQuestions] = useState([]);
   const [answerInputs, setAnswerInputs] = useState({});
- 
 
   const fetchDiscussions = async () => {
     try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/questions/course/${courseId}`);
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/questions/course/${courseId}`
+      );
       setQuestions(res.data.msg || []);
     } catch (err) {
-      console.error("Failed to load questions", err);
+      console.error('Failed to load questions', err);
     }
   };
 
@@ -32,10 +33,10 @@ const ClassDiscussion = () => {
           courseId,
           userId,
         });
-        setDiscussion("");
+        setDiscussion('');
         fetchDiscussions();
       } catch (err) {
-        console.error("Failed to post question", err);
+        console.error('Failed to post question', err);
       }
     }
   };
@@ -50,10 +51,10 @@ const ClassDiscussion = () => {
         content,
         userId,
       });
-      setAnswerInputs((prev) => ({ ...prev, [questionId]: "" }));
+      setAnswerInputs((prev) => ({ ...prev, [questionId]: '' }));
       fetchDiscussions();
     } catch (err) {
-      console.error("Failed to post answer", err);
+      console.error('Failed to post answer', err);
     }
   };
 
@@ -107,7 +108,7 @@ const ClassDiscussion = () => {
                 <div className={style.answerForm}>
                   <textarea
                     placeholder="Write your answer..."
-                    value={answerInputs[q.id] || ""}
+                    value={answerInputs[q.id] || ''}
                     onChange={(e) =>
                       setAnswerInputs({
                         ...answerInputs,

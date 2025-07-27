@@ -12,7 +12,7 @@ const Dashboard = () => {
   const { classList, removeClass } = useClassContext();
   const [selectedDay, setSelectedDay] = useState('Monday');
 
-  const classesForDay = classList.filter(cls => cls.day === selectedDay);
+  const classesForDay = classList.filter((cls) => cls.day === selectedDay);
 
   return (
     <div className={style.dashboard}>
@@ -21,7 +21,7 @@ const Dashboard = () => {
 
       {/* Tabs */}
       <div className={style.tabs}>
-        {days.map(day => (
+        {days.map((day) => (
           <button
             key={day}
             onClick={() => setSelectedDay(day)}
@@ -43,7 +43,9 @@ const Dashboard = () => {
             <div key={idx} className={style.classCard}>
               <div className={style.classInfo}>
                 <p>Class Code : {cls.subject}</p>
-                <p>Timing : {cls.startTime} - {cls.endTime}</p>
+                <p>
+                  Timing : {cls.startTime} - {cls.endTime}
+                </p>
                 <p>Venue : {cls.location}</p>
                 <p>Note : {cls.notes}</p>
               </div>
@@ -64,7 +66,10 @@ const Dashboard = () => {
         )}
       </div>
 
-      <button onClick={() => router.push('/addclass')} className={style.addButton}>
+      <button
+        onClick={() => router.push('/addclass')}
+        className={style.addButton}
+      >
         Add New Class
       </button>
     </div>

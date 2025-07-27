@@ -1,41 +1,42 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../utils/firebase";
-import { useAuth } from "@/context/AuthContext";
-import style from "./login.module.scss";
-import axios from "axios";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../utils/firebase';
+import { useAuth } from '@/context/AuthContext';
+import style from './login.module.scss';
+import axios from 'axios';
 
 const LoginPage = () => {
   const router = useRouter();
 
   const { setUser, setToken } = useAuth();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  // const [role, setRole] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!username || !email || !password) {
-      setMessage("All fields are required.");
+      setMessage('All fields are required.');
       return;
     }
 
     const emailRegex = /^[^\s@]+@([a-z]+\.)?nits\.ac\.in$/i;
     if (!emailRegex.test(email)) {
       setError(
-        "Please use your official college email ending in @nits.ac.in or @<dept>.nits.ac.in"
+        'Please use your official college email ending in @nits.ac.in or @<dept>.nits.ac.in'
       );
       return;
     }
 
     if (password.length < 6) {
-      setMessage("Password must be at least 6 characters long.");
+      setMessage('Password must be at least 6 characters long.');
       return;
     }
 
@@ -56,9 +57,9 @@ const LoginPage = () => {
 
       setUser(res.data.msg.user);
       setToken(token);
-      router.push("/");
+      router.push('/');
     } catch (err) {
-      const msg = err?.response?.data?.msg || err?.message || "Login failed";
+      const msg = err?.response?.data?.msg || err?.message || 'Login failed';
       setMessage(msg);
     }
   };
@@ -87,6 +88,22 @@ const LoginPage = () => {
             className={style.input}
             placeholder="e.g. samarjitroy025@gmail.com"
           />
+
+          {/* <div className={style.row}>
+            <div className={style.halfInput}>
+              <label>Role *</label>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className={style.select}
+              >
+                <option value="">Select Role</option>
+                <option value="Student">Student</option>
+                <option value="Professor">Professor</option>
+
+              </select>
+            </div>
+          </div> */}
 
           <label className={style.label}>Password *</label>
           <input

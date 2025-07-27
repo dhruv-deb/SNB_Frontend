@@ -32,7 +32,9 @@
     margin-bottom: 0.5rem;
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
     font-weight: 500;
 
     &:hover {
@@ -54,9 +56,9 @@
 }
 
 .placeholder {
-    text-align: center;
-    margin-top: 20%;
-    color: #888;
+  text-align: center;
+  margin-top: 20%;
+  color: #888;
 }
 
 /* --- Action Buttons --- */
@@ -68,48 +70,54 @@
   margin: 1.5rem 0;
 
   button {
-      width: auto;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  flex-wrap: wrap;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s, transform 0.1s;
+    width: auto;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    flex-wrap: wrap;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition:
+      background-color 0.2s,
+      transform 0.1s;
 
     &:hover {
-        transform: translateY(-2px);
+      transform: translateY(-2px);
     }
-    
+
     &:disabled {
-        background-color: #cccccc;
-        cursor: not-allowed;
-        transform: none;
+      background-color: #cccccc;
+      cursor: not-allowed;
+      transform: none;
     }
   }
-  
+
   button:nth-child(1) {
     background-color: #007bff;
     color: white;
-    &:hover:not(:disabled) { background-color: #0056b3; }
+    &:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
   }
-  
-  button:nth-child(2), button:nth-child(3) {
+
+  button:nth-child(2),
+  button:nth-child(3) {
     background-color: #28a745;
     color: white;
-    &:hover:not(:disabled) { background-color: #218838; }
+    &:hover:not(:disabled) {
+      background-color: #218838;
+    }
   }
 }
 
 .infoBox {
-    background-color: #e7f3ff;
-    border-left: 4px solid #007bff;
-    padding: 1rem;
-    margin: 1.5rem 0;
-    border-radius: 4px;
+  background-color: #e7f3ff;
+  border-left: 4px solid #007bff;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
 }
-
 
 /* --- Modal Styles --- */
 .modalOverlay {
@@ -132,7 +140,7 @@
   width: 100%;
   max-width: 450px;
   position: relative;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 
   h2 {
     margin-top: 0;
@@ -142,11 +150,11 @@
 .closeButton {
   position: absolute;
   top: 10px;
-  
+
   right: 30px;
   background: none;
   border: none;
-  width: 20px;;
+  width: 20px;
   font-size: 2rem; /* reduce size if it’s pushing out */
   cursor: pointer;
   color: #888;
@@ -156,7 +164,7 @@
 /* --- Form Styles --- */
 .formGroup {
   margin-bottom: 1.5rem;
-  
+
   label {
     display: block;
     margin-bottom: 0.5rem;
@@ -164,7 +172,8 @@
     color: #555;
   }
 
-  input, select {
+  input,
+  select {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid #ccc;
@@ -174,34 +183,34 @@
 }
 
 .saveButton {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1.1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 
-    &:hover {
-        background-color: #0056b3;
-        
-    }
+  &:hover {
+    background-color: #0056b3;
+  }
 }
 
 /* --- Timetable Table --- */
 .tableContainer {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .timetable {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
-  th, td {
+  th,
+  td {
     border: 1px solid #ddd;
     padding: 0.75rem;
     text-align: left;
@@ -223,16 +232,16 @@
 }
 
 .deleteButton {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.875rem;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.875rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 
-    &:hover {
-        background-color: #c82333;
-    }
+  &:hover {
+    background-color: #c82333;
+  }
 }

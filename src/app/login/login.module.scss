@@ -15,10 +15,10 @@
 
 // body {
 //   // font-family: Arial, Helvetica, sans-serif;
-  
+
 // }
 
-.parent{
+.parent {
   font-size: 1.6rem;
   background-color: #f0f4f8;
   display: flex;
@@ -26,7 +26,6 @@
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
-  
 }
 
 .container {
@@ -38,16 +37,12 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-
 .h1 {
   font-size: 3rem;
   margin-bottom: 2rem;
   color: #222;
   text-align: center;
-
 }
-
-
 
 .label {
   display: block;
@@ -61,7 +56,6 @@
   font-size: 1.4rem;
   margin-top: 0.5rem;
 }
-
 
 .input {
   width: 100%;
@@ -77,7 +71,6 @@
   border-color: #0077cc;
   outline: none;
 }
-
 
 .button {
   width: 100%;
@@ -115,12 +108,12 @@
 //   font-size: 1.4rem;
 //   color: #555;
 // }
-.signupMsg{
-  padding-top: .5rem;
+.signupMsg {
+  padding-top: 0.5rem;
 }
-.message{
- color: #e63946;
- font-size: smaller;
+.message {
+  color: #e63946;
+  font-size: smaller;
 }
 
 .container h1 {
