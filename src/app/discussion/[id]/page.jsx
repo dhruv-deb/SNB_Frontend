@@ -2,22 +2,23 @@
 
 import React, { useEffect, useState } from 'react';
 import style from './discussion.module.scss';
-import { useParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import axios from 'axios';
 
-const ClassDiscussion = () => {
-  const { courseId } = useParams();
+const ClassDiscussion = ({params}) => {
+  const { id } = params;
   const { user } = useAuth();
   const userId = user?.id;
   const [discussion, setDiscussion] = useState('');
   const [questions, setQuestions] = useState([]);
   const [answerInputs, setAnswerInputs] = useState({});
 
+  console.log('Course ID:', id);
+
   const fetchDiscussions = async () => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/questions/course/${courseId}`
+        `${process.env.NEXT_PUBLIC_API_URL}/questions/course/${id}`
       );
       setQuestions(res.data.msg || []);
     } catch (err) {
@@ -28,9 +29,9 @@ const ClassDiscussion = () => {
   const handleQuestionPost = async () => {
     if (discussion.trim()) {
       try {
-        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/question`, {
+        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/questions`, {
           content: discussion.trim(),
-          courseId,
+          courseId: id,
           userId,
         });
         setDiscussion('');
@@ -59,8 +60,8 @@ const ClassDiscussion = () => {
   };
 
   useEffect(() => {
-    if (courseId) fetchDiscussions();
-  }, [courseId]);
+    if (id) fetchDiscussions();
+  }, [id]);
 
   return (
     <div className={style.discussionPage}>
@@ -99,7 +100,7 @@ const ClassDiscussion = () => {
                   ) : (
                     q.answers.map((ans, idx) => (
                       <div key={idx} className={style.answer}>
-                        <strong>↳</strong> {ans.content}
+                        {ans.content}
                       </div>
                     ))
                   )}
