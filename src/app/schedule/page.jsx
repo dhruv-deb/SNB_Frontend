@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useClassContext } from '../ClassContext';
+// import { useClassContext } from '../ClassContext';
 import style from './schedule.module.scss';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];

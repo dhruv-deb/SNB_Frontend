@@ -19,6 +19,13 @@
   transform: scale(0.88);
   transform-origin: top center;
 }
+.container h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 2rem;
+}
 
 .smallForm {
   text-align: left;
@@ -48,4 +55,9 @@
   text-align: center;
   font-size: 1.4rem;
   color: #555;
+  
+}
+.loginMsg a {
+  cursor: pointer;
+  
 }

@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react';
 import style from './discussion.module.scss';
 import { useAuth } from '@/context/AuthContext';
 import axios from 'axios';
+import { FiTrash } from 'react-icons/fi';
 
-const ClassDiscussion = ({params}) => {
+const ClassDiscussion = ({ params }) => {
   const { id } = params;
   const { user } = useAuth();
   const userId = user?.id;
@@ -13,7 +14,8 @@ const ClassDiscussion = ({params}) => {
   const [questions, setQuestions] = useState([]);
   const [answerInputs, setAnswerInputs] = useState({});
 
-  console.log('Course ID:', id);
+  console.log(questions);
+
 
   const fetchDiscussions = async () => {
     try {
@@ -58,6 +60,23 @@ const ClassDiscussion = ({params}) => {
       console.error('Failed to post answer', err);
     }
   };
+  const handleDeleteQuestion = async (questionId) => {
+  try {
+    await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}`);
+    fetchDiscussions();
+  } catch (err) {
+    console.error('Failed to delete question', err);
+  }
+};
+
+const handleDeleteAnswer = async (answerId) => {
+  try {
+    await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/answers/${answerId}`);
+    fetchDiscussions();
+  } catch (err) {
+    console.error('Failed to delete answer', err);
+  }
+};
 
   useEffect(() => {
     if (id) fetchDiscussions();
@@ -66,7 +85,7 @@ const ClassDiscussion = ({params}) => {
   return (
     <div className={style.discussionPage}>
       <div className={style.discussionContainer}>
-        <h1 className={style.heading}>Discussion</h1>
+        <h1 className={style.heading}>DISCUSSION</h1>
 
         <div className={style.inputSection}>
           <textarea
@@ -90,21 +109,51 @@ const ClassDiscussion = ({params}) => {
           ) : (
             questions.map((q) => (
               <div key={q.id} className={style.questionBlock}>
-                <div className={style.question}>
-                  <strong>Q:</strong> {q.content}
-                </div>
+  <div className={style.question}>
+  <div className={style.qContent}>
+    <p><strong>Q:</strong> {q.content}</p>
+  </div>
+  <div className={style.meta}>
+    <span className={style.username}>~{q.user.name}</span>
+    {user?.id === q.user.id && (
+      <button
+        className={style.deleteButton}
+        onClick={() => handleDeleteQuestion(q.id)}
+        title="Delete question"
+      >
+       <FiTrash />
+      </button>
+    )}
+  </div>
+</div>
 
-                <div className={style.answers}>
-                  {q.answers.length === 0 ? (
-                    <em>No answers yet.</em>
-                  ) : (
-                    q.answers.map((ans, idx) => (
-                      <div key={idx} className={style.answer}>
-                        {ans.content}
-                      </div>
-                    ))
-                  )}
-                </div>
+<div className={style.answers}>
+  {q.answers.length === 0 ? (
+    <em>No answers yet.</em>
+  ) : (
+    q.answers.map((ans) => (
+      <div key={ans.id} className={style.answer}>
+        <div className={style.aContent}>
+          <p><strong>A:</strong> {ans.content}</p>
+        </div>
+        <div className={style.meta}>
+          <span className={style.username}>~{ans.user.name}</span>
+          {user?.id === ans.user.id && (
+            <button
+              className={style.deleteButton}
+              onClick={() => handleDeleteAnswer(ans.id)}
+              title="Delete answer"
+            >
+             <FiTrash />
+            </button>
+          )}
+        </div>
+      </div>
+    ))
+  )}
+</div>
+
+
 
                 <div className={style.answerForm}>
                   <textarea
