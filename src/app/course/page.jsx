@@ -475,9 +475,9 @@ const ProfessorLayout = ({ user }) => {
             </div>
             <div className={styles.actions}>
               <button
-                onClick={() => router.push(`/course/${selectedCourse.id}`)}
+                onClick={() => router.push(`/discussion/${selectedCourse.id}`)}
               >
-                View Full Dashboard
+                View Discussions
               </button>
               <button
                 className={styles.deleteButton}

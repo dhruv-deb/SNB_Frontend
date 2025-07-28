@@ -115,7 +115,7 @@ const ClassDiscussion = ({ params }) => {
                   </div>
                   <div className={style.meta}>
                     <span className={style.username}>~{q.user.name}</span>
-                    {(user?.id === q.user.id || user.role == ' Professor')&& (
+                    {(user?.id === q.user.id || user.role == 'Professor')&& (
                       <button
                         className={style.deleteButton}
                         onClick={() => handleDeleteQuestion(q.id)}
@@ -138,7 +138,7 @@ const ClassDiscussion = ({ params }) => {
                         </div>
                         <div className={style.meta}>
                           <span className={style.username}>~{ans.user.name}</span>
-                          {(user?.id === ans.user.id || user.role == ' Professor' ) && (
+                          {(user?.id === ans.user.id || user.role == 'Professor' ) && (
                             <button
                               className={style.deleteButton}
                               onClick={() => handleDeleteAnswer(ans.id)}
