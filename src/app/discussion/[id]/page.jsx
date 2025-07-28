@@ -61,22 +61,22 @@ const ClassDiscussion = ({ params }) => {
     }
   };
   const handleDeleteQuestion = async (questionId) => {
-  try {
-    await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}`);
-    fetchDiscussions();
-  } catch (err) {
-    console.error('Failed to delete question', err);
-  }
-};
+    try {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}`);
+      fetchDiscussions();
+    } catch (err) {
+      console.error('Failed to delete question', err);
+    }
+  };
 
-const handleDeleteAnswer = async (answerId) => {
-  try {
-    await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/answers/${answerId}`);
-    fetchDiscussions();
-  } catch (err) {
-    console.error('Failed to delete answer', err);
-  }
-};
+  const handleDeleteAnswer = async (answerId) => {
+    try {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/answers/${answerId}`);
+      fetchDiscussions();
+    } catch (err) {
+      console.error('Failed to delete answer', err);
+    }
+  };
 
   useEffect(() => {
     if (id) fetchDiscussions();
@@ -109,49 +109,49 @@ const handleDeleteAnswer = async (answerId) => {
           ) : (
             questions.map((q) => (
               <div key={q.id} className={style.questionBlock}>
-  <div className={style.question}>
-  <div className={style.qContent}>
-    <p><strong>Q:</strong> {q.content}</p>
-  </div>
-  <div className={style.meta}>
-    <span className={style.username}>~{q.user.name}</span>
-    {user?.id === q.user.id && (
-      <button
-        className={style.deleteButton}
-        onClick={() => handleDeleteQuestion(q.id)}
-        title="Delete question"
-      >
-       <FiTrash />
-      </button>
-    )}
-  </div>
-</div>
+                <div className={style.question}>
+                  <div className={style.qContent}>
+                    <p><strong>Q:</strong> {q.content}</p>
+                  </div>
+                  <div className={style.meta}>
+                    <span className={style.username}>~{q.user.name}</span>
+                    {(user?.id === q.user.id || user.role == ' Professor')&& (
+                      <button
+                        className={style.deleteButton}
+                        onClick={() => handleDeleteQuestion(q.id)}
+                        title="Delete question"
+                      >
+                        <FiTrash />
+                      </button>
+                    )}
+                  </div>
+                </div>
 
-<div className={style.answers}>
-  {q.answers.length === 0 ? (
-    <em>No answers yet.</em>
-  ) : (
-    q.answers.map((ans) => (
-      <div key={ans.id} className={style.answer}>
-        <div className={style.aContent}>
-          <p><strong>A:</strong> {ans.content}</p>
-        </div>
-        <div className={style.meta}>
-          <span className={style.username}>~{ans.user.name}</span>
-          {user?.id === ans.user.id && (
-            <button
-              className={style.deleteButton}
-              onClick={() => handleDeleteAnswer(ans.id)}
-              title="Delete answer"
-            >
-             <FiTrash />
-            </button>
-          )}
-        </div>
-      </div>
-    ))
-  )}
-</div>
+                <div className={style.answers}>
+                  {q.answers.length === 0 ? (
+                    <em>No answers yet.</em>
+                  ) : (
+                    q.answers.map((ans) => (
+                      <div key={ans.id} className={style.answer}>
+                        <div className={style.aContent}>
+                          <p><strong>A:</strong> {ans.content}</p>
+                        </div>
+                        <div className={style.meta}>
+                          <span className={style.username}>~{ans.user.name}</span>
+                          {(user?.id === ans.user.id || user.role == ' Professor' ) && (
+                            <button
+                              className={style.deleteButton}
+                              onClick={() => handleDeleteAnswer(ans.id)}
+                              title="Delete answer"
+                            >
+                              <FiTrash />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
 
 
 
