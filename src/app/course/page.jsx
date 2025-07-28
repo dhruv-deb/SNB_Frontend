@@ -5,6 +5,15 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import apiClient from '@/app/utils/apiClient';
 import styles from './courses.module.scss';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { format } from 'date-fns';
 
 const AddCourseModal = ({ onClose, onSave, professorId }) => {
   const [name, setName] = useState('');
@@ -185,12 +194,6 @@ const TimetableModal = ({ onClose, onSave }) => {
   );
 };
 
-/**
- * Helper function to get the date of the next specified day of the week.
- * @param {string} dayOfWeek - The target day of the week (e.g., 'Monday').
- * @param {Date} fromDate - The date to start searching from.
- * @returns {Date} The date of the next occurrence of that day.
- */
 const getNextDateForDay = (dayOfWeek, fromDate = new Date()) => {
   const dayIndex = [
     'Sunday',
@@ -207,11 +210,10 @@ const getNextDateForDay = (dayOfWeek, fromDate = new Date()) => {
   );
   // If the day is today but we want the "next" one, add a week
   if (resultDate.getTime() <= fromDate.getTime()) {
-      resultDate.setDate(resultDate.getDate() + 7);
+    resultDate.setDate(resultDate.getDate() + 7);
   }
   return resultDate;
 };
-
 
 const ProfessorLayout = ({ user }) => {
   const [myCourses, setMyCourses] = useState([]);
@@ -222,6 +224,14 @@ const ProfessorLayout = ({ user }) => {
 
   const [isTimetableModalOpen, setIsTimetableModalOpen] = useState(false);
   const [timetable, setTimetable] = useState([]);
+
+  const [open, setOpen] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [loading, setLoading] = useState(false);
+
+  const [openAllModal, setOpenAllModal] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const fetchMyCourses = useCallback(
     async (selectCourseId = null) => {
@@ -298,12 +308,11 @@ const ProfessorLayout = ({ user }) => {
     if (!selectedCourse) return;
     try {
       console.log(id);
-      await apiClient.delete(`/timetables/`,{
+      await apiClient.delete(`/timetables/`, {
         data: {
           timetableId: id,
-        }
-      }
-        );
+        },
+      });
       fetchMyCourses(selectedCourse.id);
     } catch (error) {
       alert(
@@ -313,62 +322,83 @@ const ProfessorLayout = ({ user }) => {
   };
 
   const handleGenerateOneSession = async () => {
-  if (!selectedCourse || timetable.length === 0) {
-    alert('Please select a course and add at least one timetable slot first.');
-    return;
-  }
+    if (!selectedCourse || timetable.length === 0 || !date) {
+      alert('Please select a course, add timetable slots, and pick a date.');
+      return;
+    }
 
-  try {
-    const today = new Date();
-    const promises = timetable.map((slot) => {
-      const nextDate = getNextDateForDay(slot.dayOfWeek, today);
-      const date = nextDate.toISOString().split('T')[0];
+    setLoading(true);
+    try {
+      const formattedDate = format(date, 'yyyy-MM-dd');
 
-      return apiClient.post("sessions/generateOne", {
-        courseId: selectedCourse.id,
-        date,
-      });
-    });
+      const promises = timetable.map((slot) =>
+        apiClient.post('sessions/generateOne', {
+          courseId: selectedCourse.id,
+          date: formattedDate,
+        })
+      );
 
-    await Promise.all(promises);
-
-    alert(`Successfully generated ${timetable.length} session(s) for next week.`);
-  } catch (error) {
-    alert(`Error generating sessions: ${error.response?.data?.message || error.message}`);
-  }
-};
-
+      await Promise.all(promises);
+      alert(
+        `Successfully generated ${timetable.length} session(s) for ${formattedDate}.`
+      );
+      setOpen(false);
+      setDate(undefined);
+    } catch (error) {
+      alert(
+        `Error generating sessions: ${error.response?.data?.message || error.message}`
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleGenerateAllSessions = async () => {
-  if (!selectedCourse || timetable.length === 0) {
-    alert('Please select a course and add at least one timetable slot first.');
-    return;
-  }
+    if (!selectedCourse || timetable.length === 0) {
+      alert(
+        'Please select a course and add at least one timetable slot first.'
+      );
+      return;
+    }
 
-  if (!window.confirm(`Are you sure you want to generate a full year of sessions for ${selectedCourse.name}? This will create ${timetable.length * 52} sessions.`)) {
-    return;
-  }
+    if (!startDate || !endDate) {
+      alert('Please select both start and end dates.');
+      return;
+    }
 
-  try {
-    const today = new Date();
-    const oneYearLater = new Date(today);
-    oneYearLater.setFullYear(oneYearLater.getFullYear() + 1);
+    if (startDate > endDate) {
+      alert('Start date cannot be after end date.');
+      return;
+    }
 
-    const startDate = today.toISOString().split('T')[0];
-    const endDate = oneYearLater.toISOString().split('T')[0];
+    if (
+      !window.confirm(
+        `Are you sure you want to generate sessions for ${selectedCourse.name} from ${startDate.toDateString()} to ${endDate.toDateString()}?`
+      )
+    ) {
+      return;
+    }
 
-    await apiClient.post("/sessions", {
-      courseId: selectedCourse.id,
-      startDate,
-      endDate,
-    });
+    try {
+      setLoading(true);
+      await apiClient.post('/sessions', {
+        courseId: selectedCourse.id,
+        startDate: startDate.toISOString().split('T')[0],
+        endDate: endDate.toISOString().split('T')[0],
+      });
 
-    alert(`Sessions generated for entire year successfully.`);
-  } catch (error) {
-    alert(`Error generating all sessions: ${error.response?.data?.message || error.message}`);
-  }
-};
-
+      alert('Sessions generated successfully for the selected date range.');
+      setOpenAllModal(false); // Close the popup
+      setStartDate(undefined); // Optionally reset fields
+      setEndDate(undefined);
+    } catch (error) {
+      alert(
+        `Error generating sessions: ${error.response?.data?.message || error.message}`
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className={styles.pageContainer}>
@@ -460,18 +490,111 @@ const ProfessorLayout = ({ user }) => {
             <hr className={styles.divider} />
 
             <h2>Timetable & Sessions</h2>
-            <p>Set a recurring weekly schedule for this course. Once set, you can generate the actual class sessions.</p>
+            <p>
+              Set a recurring weekly schedule for this course. Once set, you can
+              generate the actual class sessions.
+            </p>
             <div className={styles.actions}>
-              <button className={styles.timetable} onClick={() => setIsTimetableModalOpen(true)}>
+              <button
+                className={styles.timetable}
+                onClick={() => setIsTimetableModalOpen(true)}
+              >
                 Add to Timetable
               </button>
               <div className={styles.generate}>
-                <button className={styles.generateOne} onClick={handleGenerateOneSession} disabled={!timetable.length}>
-                    Generate Next Sessions
+                <button
+                  className={styles.generateOne}
+                  onClick={() => setOpen(true)}
+                  disabled={!timetable.length}
+                >
+                  Generate One Session
                 </button>
-                <button className={styles.generateAll} onClick={handleGenerateAllSessions} disabled={!timetable.length}>
-                    Generate All (1 Year)
+                <Dialog
+                  open={open}
+                  onOpenChange={setOpen}
+                  className="bg-transparent"
+                >
+                  <DialogContent className="flex flex-col gap-10 overflow-hidden">
+                    <DialogHeader>
+                      <DialogTitle>Select a Date for the Session</DialogTitle>
+                    </DialogHeader>
+
+                    <div className="flex flex-col items-center w-full px-4 py-6 mt-3">
+                      <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={setDate}
+                        className="scale-110 border rounded-md shadow-sm"
+                        captionLayout="dropdown"
+                      />
+
+                      <Button
+                        onClick={handleGenerateOneSession}
+                        disabled={!date || loading}
+                        className={`w-full rounded-md px-4 py-2 text-white font-semibold transition ${
+                          !date || loading
+                            ? 'bg-gray-400 cursor-not-allowed'
+                            : 'bg-black hover:bg-gray-900'
+                        }`}
+                      >
+                        {loading ? 'Generating...' : 'Generate Session'}
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+                <button
+                  className={styles.generateAll}
+                  onClick={() => setOpenAllModal(true)}
+                  disabled={!timetable.length}
+                >
+                  Generate All Sessions
                 </button>
+                <Dialog open={openAllModal} onOpenChange={setOpenAllModal}>
+                  <DialogContent className="w-[90vw] max-w-lg p-0 overflow-hidden">
+                    <DialogHeader className="px-6 pt-6">
+                      <DialogTitle className="text-lg font-semibold text-center">
+                        Select Start and End Dates
+                      </DialogTitle>
+                    </DialogHeader>
+
+                    <div className="flex flex-col items-center gap-6 px-6 py-6">
+                      <div className="flex flex-col justify-between w-full gap-6">
+                        <div className="flex flex-col items-center">
+                          <p className="mb-2 font-medium">Start Date</p>
+                          <Calendar
+                            mode="single"
+                            selected={startDate}
+                            onSelect={setStartDate}
+                            className="border rounded-md shadow-md"
+                          />
+                        </div>
+
+                        <div className="flex flex-col items-center">
+                          <p className="mb-2 font-medium">End Date</p>
+                          <Calendar
+                            mode="single"
+                            selected={endDate}
+                            onSelect={setEndDate}
+                            className="border rounded-md shadow-md"
+                          />
+                        </div>
+                      </div>
+
+                      <Button
+                        onClick={async () => {
+                          await handleGenerateAllSessions();
+                          setOpenAllModal(false);
+                        }}
+                        disabled={
+                          !startDate || !endDate || timetable.length === 0
+                        }
+                        className="w-full py-2 font-semibold text-white bg-black rounded-md hover:bg-gray-900"
+                      >
+                        Generate All Sessions
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
 
@@ -621,7 +744,6 @@ const StudentLayout = ({ user }) => {
     </div>
   );
 };
-
 
 export default function CoursesPage() {
   const { user, token } = useAuth();

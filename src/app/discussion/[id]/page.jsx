@@ -61,7 +61,7 @@ const ClassDiscussion = ({params}) => {
 
   useEffect(() => {
     if (id) fetchDiscussions();
-  }, [id]);
+  }, [id, fetchDiscussions]);
 
   return (
     <div className={style.discussionPage}>

@@ -1,5 +1,5 @@
 import localFont from 'next/font/local';
-import './globals.scss';
+import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 
 const geistSans = localFont({
