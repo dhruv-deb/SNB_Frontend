@@ -114,7 +114,7 @@ const LoginPage = () => {
           />
 
           <button type="submit" className={style.button}>
-            Login
+            <strong>Login</strong>
           </button>
         </form>
 

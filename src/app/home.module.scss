@@ -1,68 +1,293 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 2rem;
-  min-height: 100vh;
-  //   background-color: #f8f9fa;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+/* Color Palette */
+$primary-color: #4A4E69;
+$accent-color: #5865F2;
+$bg-color: #FFFFFF;
+$light-bg-color: #f8f9fa;
+$text-color: #2c3e50;
+$light-text-color: #7f8c9b;
+$card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+/* General Styles */
+.pageWrapper {
+  background-color: $bg-color;
+  color: $text-color;
+  font-family: 'Inter', sans-serif; /* <-- FONT CHANGED HERE */
 }
 
-// .landingImage {
-//   width: 100%;
-//   max-width: 600px;
-//   height: auto;
-//   border-radius: 1rem;
-//   margin-bottom: 2rem;
-//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-// }
-
-.title {
+.sectionTitle {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 2rem;
-  color: #333;
+  color: $primary-color;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding-top: 6rem;
+  justify-content: center;
 }
 
-.buttonGroup {
-  display: flex;
-  gap: 1rem;
+.sectionSubtitle {
+  font-size: 0rem;
+  color: $light-text-color;
+  text-align: center;
+  visibility: hidden;
+  max-width: 600px;
+  margin: 0 auto 3rem auto;
 }
 
-.primaryButton,
-.secondaryButton {
-  padding: 0.75rem 2rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 0.5rem;
+/* Button Styles */
+.primaryButton, .secondaryButton {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.5rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  width: fit-content;
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+  transition: all 0.2s ease-in-out;
+  border: none;
 }
 
 .primaryButton {
-  background-color: #0077cc;
+  background-color: $accent-color;
   color: white;
-  width: fit-content;
-  font-size: 20px;
-
   &:hover {
-    background-color: #005fa3;
+    background-color: lighten($accent-color, 10%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 }
 
 .secondaryButton {
-  background-color: white;
-  color: #0077cc;
-  border: 2px solid #0077cc;
-  font-size: 20px;
-
+  background-color: $bg-color;
+  color: $accent-color;
+  border: 1px solid $accent-color;
   &:hover {
-    background-color: #f0f8ff;
+    background-color: #f0f2ff;
+    transform: translateY(-2px);
+  }
+}
+
+/* Hero Section --- UPDATED FOR NO IMAGE */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 5%;
+  background-color: $light-bg-color;
+  min-height: 60vh;
+  text-align: center;
+
+  .heroContent {
+    max-width: 750px; /* Adjust width as needed */
+  }
+
+  .heroTitle {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: $primary-color;
+    margin-bottom: 50rem;
+    padding-bottom: 20px;
+  }
+
+  .heroSubtitle {
+    font-size: 1.5rem;
+    color: $light-text-color;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+    .heroImageContainer {
+    margin-top: 3rem; 
+    margin-bottom: 3rem;// Adds space between buttons and image
+    width: 100%;
+
+    // The Next.js Image component renders an <img> tag inside
+    img {
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+  .heroButtons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+
+/* Features Section */
+.featuresSection {
+  padding-top: 5rem;
+  margin-top: auto;
+  padding: 5rem 5%;
+  justify-content: center;
+  text-align: center;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Exactly 3 cards per row */
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.featureCard {
+  background: $bg-color;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: left;
+  box-shadow: $card-shadow;
+  border: 1px solid #e9ecef;
+  transition: transform 0.2s, box-shadow 0.2s;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .featureIcon {
+    font-size: 4.5rem;
+    color: $accent-color;
+    margin-bottom: 1rem;
+    background-color: #f0f2ff;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: $primary-color;
+  }
+
+  p {
+    color: $light-text-color;
+    line-height: 1.6;
+    font-size: 1.2rem;
+  }
+}
+
+/* About/Mission Section */
+.aboutSection {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  padding: 5rem 5%;
+  background-color: $light-bg-color;
+
+  .missionContent {
+    flex: 1;
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: $primary-color;
+      margin-bottom: 1.5rem;
+    }
+    p {
+      color: $light-text-color;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .valuesContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .valueCard {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    background-color: $bg-color;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: $card-shadow;
+
+    .valueIcon {
+      font-size: 1.5rem;
+      color: $accent-color;
+      margin-top: 5px;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      color: $primary-color;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      color: $light-text-color;
+      line-height: 1.5;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+/* CTA Section */
+.ctaSection {
+  background-color: $primary-color;
+  color: white;
+  text-align: center;
+  padding: 5rem 5%;
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    opacity: 0.9;
+    font-size: 1.1rem;
+  }
+  
+  .ctaButtons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    .primaryButton {
+      background-color: white;
+      color: $accent-color;
+      &:hover {
+        background-color: #f0f2ff;
+      }
+    }
+    .secondaryButton {
+      border-color: white;
+      color: white;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: $light-bg-color;
+  color: $light-text-color;
+  border-top: 1px solid #dee2e6;
+}
+
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+  .aboutSection {
+    flex-direction: column;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .heroTitle {
+    font-size: 2.8rem;
   }
 }
