@@ -80,7 +80,7 @@ const handleDeleteAnswer = async (answerId) => {
 
   useEffect(() => {
     if (id) fetchDiscussions();
-  }, [id]);
+  }, [id, fetchDiscussions]);
 
   return (
     <div className={style.discussionPage}>
