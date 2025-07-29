@@ -52,7 +52,7 @@ $card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   &:hover {
     background-color: lighten($accent-color, 10%);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -94,17 +94,22 @@ $card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     line-height: 1.6;
     margin-bottom: 2rem;
   }
-    .heroImageContainer {
-    margin-top: 3rem; 
-    margin-bottom: 3rem;// Adds space between buttons and image
-    width: 100%;
+  .heroImageContainer {
+  margin-top: 3rem; 
+  margin-bottom: 3rem;
+  width: 100%;
 
-    // The Next.js Image component renders an <img> tag inside
-    img {
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
+  img {
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
+
+  img:hover {
+    transform: translateY(-2px) rotate(1deg);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+}
 }
   .heroButtons {
     display: flex;
@@ -185,6 +190,9 @@ $card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
       color: $light-text-color;
       line-height: 1.7;
       margin-bottom: 1rem;
+      margin-top: 2rem;
+      text-align: justify;
+      margin-right: 2rem;
     }
   }
 
@@ -263,7 +271,6 @@ $card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     }
   }
 }
-
 /* Footer */
 .footer {
   text-align: center;

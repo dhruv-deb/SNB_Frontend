@@ -181,13 +181,20 @@ const SignupPage = () => {
             onChange={(e) => setPasswordConfirm(e.target.value)}
           />
 
-          <button
-            type="submit"
-            onClick={register}
-            style={{ marginTop: '2rem' }}
-          >
-            Sign up
-          </button>
+         <button
+  type="submit"
+  onClick={register}
+  style={{
+    marginTop: '2rem',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    padding: '0.5rem 1rem',
+  }}
+>
+  Sign up
+</button>
         </form>
 
         <div className={style.loginMsg}>

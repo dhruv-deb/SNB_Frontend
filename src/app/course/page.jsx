@@ -4,6 +4,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import apiClient from '@/app/utils/apiClient';
+import { X } from 'lucide-react'
+import { DialogClose } from "@/components/ui/dialog"
 import styles from './courses.module.scss';
 import {
   Dialog,
@@ -515,6 +517,15 @@ const ProfessorLayout = ({ user }) => {
                   className="bg-transparent"
                 >
                   <DialogContent className="flex flex-col gap-10 overflow-hidden">
+                    <DialogClose asChild>
+                      <button
+                        className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none"
+                        aria-label="Close"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </DialogClose>
+
                     <DialogHeader>
                       <DialogTitle>Select a Date for the Session</DialogTitle>
                     </DialogHeader>
@@ -531,11 +542,10 @@ const ProfessorLayout = ({ user }) => {
                       <Button
                         onClick={handleGenerateOneSession}
                         disabled={!date || loading}
-                        className={`w-full rounded-md px-4 py-2 text-white font-semibold transition ${
-                          !date || loading
+                        className={`w-full rounded-md px-4 py-2 text-white font-semibold transition ${!date || loading
                             ? 'bg-gray-400 cursor-not-allowed'
                             : 'bg-black hover:bg-gray-900'
-                        }`}
+                          }`}
                       >
                         {loading ? 'Generating...' : 'Generate Session'}
                       </Button>

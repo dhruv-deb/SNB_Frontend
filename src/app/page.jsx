@@ -53,54 +53,13 @@ const Home = () => {
 
 
       <main>
-        {/* ========== Features Section ========== */}
-        <section className={style.featuresSection}>
-          <h2 className={style.sectionTitle}>Powerful Features for Modern Education</h2>
-          <p className={style.sectionSubtitle}>
-            Everything you need to create engaging learning experiences and manage your educational content effectively.
-          </p>
-          <div className={style.featuresGrid}>
-            <div className={style.featureCard}>
-              <FaCalendarAlt className={style.featureIcon} />
-              <h3>Class Scheduling</h3>
-              <p>Effortlessly schedule and manage classes, sessions, and courses with our intuitive calendar system.</p>
-            </div>
-            <div className={style.featureCard}>
-              <FaComments className={style.featureIcon} />
-              <h3>Interactive Discussions</h3>
-              <p>Foster engagement with threaded discussions, Q&A sessions, and real-time collaboration tools.</p>
-            </div>
-            <div className={style.featureCard}>
-              <FaUsers className={style.featureIcon} />
-              <h3>Student Management</h3>
-              <p>Track attendance, monitor progress, and manage student enrollment across all your courses.</p>
-            </div>
-            <div className={style.featureCard}>
-              <FaVideo className={style.featureIcon} />
-              <h3>Virtual Sessions</h3>
-              <p>Host live virtual classes with integrated video conferencing and screen sharing capabilities.</p>
-            </div>
-            <div className={style.featureCard}>
-              <FaShareAlt className={style.featureIcon} />
-              <h3>Resource Sharing</h3>
-              <p>Share course materials, assignments, and resources with easy file management and organization.</p>
-            </div>
-            <div className={style.featureCard}>
-              <FaBook className={style.featureIcon} />
-              <h3>Course Builder</h3>
-              <p>Create comprehensive course structures with modules, lessons, and assessment tools.</p>
-            </div>
-          </div>
-        </section>
-
         {/* ========== About/Mission Section ========== */}
         <section className={style.aboutSection}>
           <div className={style.missionContent}>
             <h2>About Us</h2>
             <p>
               ClassCompass was born from the vision of creating a seamless educational experience that adapts to the needs of modern learning environments. We believe that technology should enhance, not complicate, the teaching and learning process.
-            </p>
-            <p>
+            
               Our platform bridges the gap between traditional classroom management and digital innovation, providing educators with the tools they need to create engaging, interactive, and effective learning experiences.
             </p>
           </div>
@@ -128,10 +87,54 @@ const Home = () => {
             </div>
           </div>
         </section>
+        
+        {/* ========== Features Section ========== */}
+        <section className={style.featuresSection}>
+          <h2 className={style.sectionTitle}>Powerful Features for Modern Education</h2>
+          <p className={style.sectionSubtitle}>
+            Everything you need to create engaging learning experiences and manage your educational content effectively.
+          </p>
+          <div className={style.featuresGrid}>
+            <div className={style.featureCard}>
+              <FaCalendarAlt className={style.featureIcon} />
+              <h3>Class Scheduling</h3>
+              <p>Effortlessly schedule and manage classes, sessions, and courses with our intuitive calendar system.</p>
+            </div>
+            <div className={style.featureCard}>
+              <FaComments className={style.featureIcon} />
+              <h3>Interactive Discussions</h3>
+              <p>Foster engagement with threaded discussions, Q&A sessions, and real-time collaboration tools.</p>
+            </div>
+            <div className={style.featureCard}>
+              <FaUsers className={style.featureIcon} />
+              <h3>Student Management</h3>
+              <p>Track attendance, monitor progress, and manage student enrollment across all your courses.</p>
+            </div>
+            <div className={style.featureCard}>
+              <FaVideo className={style.featureIcon} />
+              <h3>Timetabe Management</h3>
+              <p>Organize weekly class schedules with a centralized view of all courses, sessions, and instructor availability.</p>
+            </div>
+            <div className={style.featureCard}>
+              <FaShareAlt className={style.featureIcon} />
+              <h3>Resource Sharing</h3>
+              <p>Share course materials, assignments, and resources with easy file management and organization.</p>
+            </div>
+            <div className={style.featureCard}>
+              <FaBook className={style.featureIcon} />
+              <h3>Course Builder</h3>
+              <p>Create comprehensive course structures with modules, lessons, and assessment tools.</p>
+            </div>
+          </div>
+        </section>
+
+        
 
         
       </main>
-
+ <footer className={style.footer}>
+        <p>&copy; {new Date().getFullYear()} ClassCompass. All Rights Reserved.</p>
+      </footer>
       
     </div>
   );

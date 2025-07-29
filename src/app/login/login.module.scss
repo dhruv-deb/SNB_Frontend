@@ -32,6 +32,8 @@
   background-color: #fff;
   max-width: 40rem;
   width: 100%;
+  
+  
   padding: 3rem 4rem;
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -41,7 +43,10 @@
   font-size: 3rem;
   margin-bottom: 2rem;
   color: #222;
+  font-weight: 700;
   text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .label {
@@ -80,6 +85,7 @@
   background-color: #0077cc;
   color: white;
   border: none;
+  text-align: center;
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
