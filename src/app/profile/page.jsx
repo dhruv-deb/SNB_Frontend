@@ -9,7 +9,8 @@ import defaultImg from '@/assets/default.jpg';
 import styles from './profile.module.scss';
 import { Button } from '../../components/button/button.jsx';
 import { Card } from '../../components/card/card.jsx';
-import { MdLogout, MdEdit, MdDelete, MdLock } from 'react-icons/md';
+import { MdLogout, MdEdit } from 'react-icons/md';
+import { auth } from '../utils/firebase.js';
 
 const Profile = () => {
   const { user: authUser, token } = useAuth();
@@ -31,12 +32,7 @@ const Profile = () => {
   const fetchUser = async (id) => {
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${id}`
       );
       setUser(res.data.msg);
       setFormData(res.data.msg);
@@ -67,13 +63,8 @@ const Profile = () => {
       }
 
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/${user.id}`,
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${user.id}`,
+        payload
       );
 
       setUser(res.data.msg);
@@ -110,19 +101,16 @@ const Profile = () => {
           <div className={styles.profilePictureSection}>
             <div className={styles.avatar}>
               <Image
-                src={defaultImg}
+                src={auth.currentUser?.photoURL || defaultImg}
                 alt="avatar"
                 width={180}
                 height={180}
                 className={styles.profileAvatar}
               />
             </div>
-            <Button click="Edit" Icon={MdEdit} />
           </div>
 
           <div className={styles.actionButtons}>
-            <Button click="Change Password" Icon={MdLock} onClick={openEdit} />
-            <Button click="Delete Account" variant="delete" Icon={MdDelete} />
             <Button click="Logout" Icon={MdLogout} />
           </div>
         </div>
@@ -132,11 +120,11 @@ const Profile = () => {
             <div className={styles.infoList}>
               <Card
                 title="Scholar ID"
-                studentData={user.scholarId}
+                studentData={user.RollNo}
                 variant="dark"
               />
               <Card title="Name" studentData={user.name} variant="dark" />
-              <Card title="Branch" studentData={user.branch} variant="dark" />
+              <Card title="Branch" studentData={user.Branch} variant="dark" />
               <Card
                 title="Institute Email"
                 studentData={user.email}
