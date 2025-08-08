@@ -63,72 +63,69 @@ export default function SessionsTable({ params }) {
 
   return (
     <div className="p-6">
-      <h2 className="mb-4 text-xl font-bold">Class Sessions</h2>
+      <h2 className="mb-4 text-[24px] font-bold mb-2">Class Sessions</h2>
       
       {loading ? (
         <p>Loading sessions...</p>
       ) : sessions.length === 0 ? (
         <p>No sessions found for this course.</p>
       ) : (
-        <table className="w-full border border-collapse border-gray-300">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="p-2 border">Date</th>
-              <th className="p-2 border">Status</th>
-              <th className="p-2 border">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sessions.map((session) => {
-              const isPast = dayjs(session.date).isBefore(dayjs(), 'day');
-              const status = session.isCanceled
-                ? 'Cancelled'
-                : isPast
-                  ? 'Completed'
-                  : 'Scheduled';
+        <table className="min-w-full border divide-y divide-gray-200 overflow-hidden rounded-lg shadow-md">
+  <thead className="bg-gray-900">
+    <tr>
+      <th className="px-4 py-3 text-left text-xl font-semibold text-white uppercase tracking-wider">Date</th>
+      <th className="px-4 py-3 text-left text-xl font-semibold text-white uppercase tracking-wider">Status</th>
+      <th className="px-4 py-3 text-center text-xl font-semibold text-white uppercase tracking-wider">Action</th>
+    </tr>
+  </thead>
+  <tbody className="bg-white divide-y divide-gray-200">
+    {sessions.map((session) => {
+      const isPast = dayjs(session.date).isBefore(dayjs(), 'day');
+      const status = session.isCanceled
+        ? 'Cancelled'
+        : isPast
+        ? 'Completed'
+        : 'Scheduled';
 
-              return (
-                <tr key={session.id}>
-                  <td className="p-2 border">
-                    {dayjs(session.date).format('DD MMM YYYY')}
-                  </td>
-                  <td
-                    className={`border p-2 font-semibold ${
-                      status === 'Completed'
-                        ? 'text-green-600'
-                        : status === 'Cancelled'
-                          ? 'text-red-600'
-                          : 'text-yellow-600'
-                    }`}
-                  >
-                    {status}
-                  </td>
-                  <td className="p-2 text-center border">
-                    {status === 'Scheduled' ? (
-                      <button
-                        className="px-3 py-1 text-white bg-red-500 rounded hover:bg-red-600"
-                        onClick={() => cancelSession(session.id)}
-                      >
-                        Cancel
-                      </button>
-                    ) : (
-                      <button
-                        className={`px-3 py-1 rounded text-white ${
-                          status === 'Completed'
-                            ? 'bg-green-500'
-                            : 'bg-gray-400'
-                        }`}
-                        disabled
-                      >
-                        {status}
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+      const statusColor =
+        status === 'Completed'
+          ? 'text-green-600 bg-green-50'
+          : status === 'Cancelled'
+          ? 'text-red-600 bg-red-50'
+          : 'text-yellow-600 bg-yellow-50';
+
+      return (
+        <tr key={session.id} className="hover:bg-gray-50 transition">
+          <td className="px-4 py-3 whitespace-nowrap text-xl text-gray-800">
+            {dayjs(session.date).format('DD MMM YYYY')}
+          </td>
+          <td className={`px-4 py-3 whitespace-nowrap text-xl font-medium rounded ${statusColor}`}>
+            {status}
+          </td>
+          <td className="px-4 py-3 text-center">
+            {status === 'Scheduled' ? (
+              <button
+                className="inline-flex h-auto w-auto px-8 justify-center py-1.5 bg-red-500 text-white text-xl font-medium rounded hover:bg-red-600 transition"
+                onClick={() => cancelSession(session.id)}
+              >
+                Cancel
+              </button>
+            ) : (
+              <span
+                className={`inline-flex items-center px-4 py-1.5 text-xl font-medium rounded text-white ${
+                  status === 'Completed' ? 'bg-green-500' : 'bg-gray-400'
+                }`}
+              >
+                {status}
+              </span>
+            )}
+          </td>
+        </tr>
+      );
+    })}
+  </tbody>
+</table>
+
       )}
     </div>
   );

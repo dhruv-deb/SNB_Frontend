@@ -51,16 +51,16 @@ const Timetable = ({ data }) => {
                       // Class Card: Individual class item with clean styling
                       <div
                         key={index}
-                        className="bg-background p-4 rounded-lg border transition-all hover:shadow-md"
+                        className="bg-background p-4 rounded-xl border transition-all hover:shadow-md"
                       >
                         <div className="flex flex-col gap-1">
-                          <span className="text-lg font-semibold text-primary">
+                          <span className="text-xl font-semibold text-primary">
                             {item.startTime} - {item.endTime}
                           </span>
-                          <p className="text-lg font-semibold text-card-foreground">
+                          <p className="text-xl font-semibold text-card-foreground">
                             {item.courseName}
                           </p>
-                          <p className="text-lg text-muted-foreground">
+                          <p className="text-xl text-muted-foreground">
                             {item.courseCode} &middot; {item.location}
                           </p>
                         </div>
@@ -68,8 +68,8 @@ const Timetable = ({ data }) => {
                     ))
                   ) : (
                     // Placeholder for days with no classes
-                    <div className="flex h-24 items-center justify-center rounded-lg border-2 border-dashed border-muted bg-muted/20">
-                      <p className="text-sm text-muted-foreground">No Classes</p>
+                    <div className="flex h-24 items-center justify-center rounded-xl border-2 border-dashed border-muted bg-muted/20">
+                      <p className="text-xl text-muted-foreground">No Classes</p>
                     </div>
                   )}
                 </div>
@@ -80,7 +80,7 @@ const Timetable = ({ data }) => {
           // Empty State: Displayed when no timetable data is available
           <div className="flex flex-col items-center justify-center gap-3 text-center text-muted-foreground py-12">
             <CalendarOff className="h-10 w-10" />
-            <h3 className="text-lg font-semibold">No Timetable Data</h3>
+            <h3 className="text-xl font-semibold">No Timetable Data</h3>
             <p className="text-sm">Timetable information is not available for this user.</p>
           </div>
         )}
