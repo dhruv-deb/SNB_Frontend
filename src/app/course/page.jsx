@@ -483,6 +483,7 @@ const ProfessorLayout = ({ user }) => {
               </button>
               <button
                 onClick={() => router.push(`/sessions/${selectedCourse.id}`)}
+                style={{ marginLeft: '-875px' }} // Reduced margin
               >
                 View All Sessions
               </button>

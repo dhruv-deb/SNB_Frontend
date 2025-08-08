@@ -44,7 +44,7 @@ const Timetable = ({ data }) => {
           <div className="grid grid-cols-7 gap-x-4 gap-y-6">
             {daysOfWeek.map((day) => (
               <div key={day} className="flex flex-col gap-4">
-                <h3 className="text-xl font-semibold tracking-tight">{day}</h3>
+                <h3 className="text-[20px] font-semibold tracking-tight">{day}</h3>
                 <div className="flex flex-col gap-4">
                   {groupedTimetable[day] && groupedTimetable[day].length > 0 ? (
                     groupedTimetable[day].map((item, index) => (
@@ -54,10 +54,10 @@ const Timetable = ({ data }) => {
                         className="bg-background p-4 rounded-xl border transition-all hover:shadow-md"
                       >
                         <div className="flex flex-col gap-1">
-                          <span className="text-xl font-semibold text-primary">
+                          <span className="text-[16px] font-semibold text-primary">
                             {item.startTime} - {item.endTime}
                           </span>
-                          <p className="text-xl font-semibold text-card-foreground">
+                          <p className="text-[16px] font-semibold text-card-foreground">
                             {item.courseName}
                           </p>
                           <p className="text-xl text-muted-foreground">
@@ -69,7 +69,7 @@ const Timetable = ({ data }) => {
                   ) : (
                     // Placeholder for days with no classes
                     <div className="flex h-24 items-center justify-center rounded-xl border-2 border-dashed border-muted bg-muted/20">
-                      <p className="text-xl text-muted-foreground">No Classes</p>
+                      <p className="text-[16px] text-muted-foreground">No Classes</p>
                     </div>
                   )}
                 </div>
