@@ -207,7 +207,26 @@
     background-color: #c82333 !important;
   }
 }
+.topNav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: transparent; // or your header color
+  position: relative;
+  z-index: 10;
+}
 
+.profileIcon {
+  cursor: pointer;
+  color: #333; // customize based on theme
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    color: #0070f3; // hover color
+  }
+}
 .deleteButtonSmall {
   padding: 0.4rem 0.8rem;
   font-size: 0.875rem;

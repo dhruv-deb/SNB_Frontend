@@ -1,21 +1,28 @@
 // import React, { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
+'use client';
+import { FaUserCircle } from 'react-icons/fa';
 import style from './about.module.scss';
+import { useRouter } from 'next/navigation';
 import aboutImg from '../../assets/about.png';
 
 const About = () => {
-  // const navigate = useNavigate();
-  // const [loading, setLoading] = useState(false);
-
-  // const handleNavigate = (path) => {
-  //     setLoading(true);
-  //     setTimeout(() => {
-  //         navigate(path);
-  //     }, 300);
-  // };
+  const router = useRouter();
+  
+    const handleNavigate = (path) => {
+      router.push(path);
+    };
+  
+  {/* Top Navigation Bar with Profile Icon */ }
 
   return (
     <div className={style.container}>
+      <div className={style.topNav}>
+        <div className={style.logoSpace}></div> {/* for spacing or logo if needed */}
+        <div className={style.profileIcon} onClick={() => handleNavigate('/profile')}>
+          <FaUserCircle size={30} />
+        </div>
+      </div>
       <h1 className={style.title}>About Us</h1>
       <img src={aboutImg} alt="About" className={style.aboutImage} />
 

@@ -9,12 +9,15 @@ import defaultImg from '@/assets/default.jpg';
 import styles from './profile.module.scss';
 import { Button } from '../../components/button/button.jsx';
 import { Card } from '../../components/card/card.jsx';
+import Timetable from '../../components/timetable/Timetable.jsx'; // <-- 1. IMPORT
 import { MdLogout, MdEdit } from 'react-icons/md';
 import { auth } from '../utils/firebase.js';
 
 const Profile = () => {
   const { user: authUser, token } = useAuth();
   const [user, setUser] = useState(null);
+  const [timetable, setTimetable] = useState([]); // <-- 2. ADD TIMETABLE STATE
+  const [timetableLoading, setTimetableLoading] = useState(true); // <-- 2. ADD LOADING STATE
   const [formData, setFormData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
@@ -26,6 +29,7 @@ const Profile = () => {
     setHasMounted(true);
     if (authUser?.id && token) {
       fetchUser(authUser.id);
+      fetchTimetable(authUser.id); // <-- 3. CALL FETCH TIMETABLE
     }
   }, [authUser, token]);
 
@@ -40,6 +44,25 @@ const Profile = () => {
       console.error('Failed to fetch user:', err);
     }
   };
+
+  // <-- 4. CREATE FETCH TIMETABLE FUNCTION
+  const fetchTimetable = async (id) => {
+    setTimetableLoading(true);
+    try {
+      // Assuming the endpoint is /users/:id/timetable
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${id}/timetable`
+      );
+      setTimetable(res.data.msg);
+      console.log('Fetched timetable:', res.data.msg);
+    } catch (err) {
+      console.error('Failed to fetch timetable:', err);
+      setTimetable([]); // Set to empty array on error
+    } finally {
+      setTimetableLoading(false);
+    }
+  };
+
 
   const openEdit = () => setIsEditing(true);
   const cancelEdit = () => {
@@ -84,7 +107,7 @@ const Profile = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  if (!hasMounted || !user) return null;
+  if (!hasMounted || !user) return null; // Or a loading spinner
 
   return (
     <div className={styles.profileDashboard}>
@@ -118,23 +141,27 @@ const Profile = () => {
         <div className={styles.profileRight}>
           <div className={styles.userInfoCard}>
             <div className={styles.infoList}>
-              <Card
-                title="Scholar ID"
-                studentData={user.RollNo}
-                variant="dark"
-              />
+              <Card title="Scholar ID" studentData={user.RollNo} variant="dark"/>
               <Card title="Name" studentData={user.name} variant="dark" />
               <Card title="Branch" studentData={user.Branch} variant="dark" />
-              <Card
-                title="Institute Email"
-                studentData={user.email}
-                variant="dark"
-              />
+              <Card title="Institute Email" studentData={user.email} variant="dark" />
+              <Card title="Role" studentData={user.role} variant="dark" />
             </div>
             <Button click="Edit Profile" Icon={MdEdit} onClick={openEdit} />
           </div>
         </div>
       </div>
+
+      {/* --- 5. RENDER THE TIMETABLE COMPONENT --- */}
+      <div className={styles.timetableContainer}>
+        {timetableLoading ? (
+          <p>Loading timetable...</p>
+        ) : (
+          <Timetable data={timetable} />
+        )}
+      </div>
+      {/* --- END OF TIMETABLE SECTION --- */}
+
 
       {isEditing && (
         <div className={styles.modalOverlay} onClick={cancelEdit}>

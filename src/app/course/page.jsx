@@ -2,19 +2,19 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/context/AuthContext';
-import apiClient from '@/app/utils/apiClient';
+import { useAuth } from '../../context/AuthContext.jsx';
+import apiClient from '../utils/apiClient.js';
 import { X } from 'lucide-react'
-import { DialogClose } from "@/components/ui/dialog"
+import { DialogClose } from "../../components/ui/dialog.jsx"
 import styles from './courses.module.scss';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
+} from '../../components/ui/dialog.jsx';
+import { Button } from '../../components/ui/button.jsx';
+import { Calendar } from '../../components/ui/calendar.jsx';
 import { format } from 'date-fns';
 
 const AddCourseModal = ({ onClose, onSave, professorId }) => {
@@ -148,7 +148,7 @@ const TimetableModal = ({ onClose, onSave }) => {
   };
 
   return (
-    <div className={styles.modalOverlay}>
+    <div className={styles.modalOverlay}>      
       <div className={styles.modalContent}>
         <button className={styles.closeButton} onClick={onClose}>
           &times;
@@ -482,6 +482,11 @@ const ProfessorLayout = ({ user }) => {
                 View Discussions
               </button>
               <button
+                onClick={() => router.push(`/sessions/${selectedCourse.id}`)}
+              >
+                View All Sessions
+              </button>
+              <button
                 className={styles.deleteButton}
                 onClick={() => handleDeleteCourse(selectedCourse.id)}
               >
@@ -726,12 +731,21 @@ const StudentLayout = ({ user }) => {
                   </div>
                   <div className={styles.courseActions}>
                     {view === 'available' ? (
-                      <button
-                        className={styles.buttonSuccess}
-                        onClick={() => handleEnroll(course.id)}
-                      >
-                        Enroll
-                      </button>
+                      <>
+                        <button
+                          className={styles.buttonSuccess}
+                          onClick={() => handleEnroll(course.id)}
+                        >
+                          Enroll
+                        </button>
+                        <button
+                          className={styles.buttonDark}
+                          onClick={() => router.push(`/sessions/${course.id}`)}
+                          style={{ marginLeft: '8px' }} // Optional: spacing
+                        >
+                          View AllSessions
+                        </button>
+                      </>
                     ) : (
                       <button
                         className={styles.buttonDark}

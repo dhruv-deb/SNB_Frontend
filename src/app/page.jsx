@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { FaUserCircle } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image'; // <-- Re-import Image
 import style from './home.module.scss';
@@ -23,7 +24,16 @@ const Home = () => {
 
   return (
     <div className={style.pageWrapper}>
+      {/* Top Navigation Bar with Profile Icon */}
+<div className={style.topNav}>
+  <div className={style.logoSpace}></div> {/* for spacing or logo if needed */}
+  <div className={style.profileIcon} onClick={() => handleNavigate('/profile')}>
+    <FaUserCircle size={30} />
+  </div>
+</div>
+
       {/* ========== Hero Section ========== */}
+      
       <header className={style.hero}>
         <div className={style.heroContent}>
           <h1 className={style.heroTitle}>ClassCompass</h1>
